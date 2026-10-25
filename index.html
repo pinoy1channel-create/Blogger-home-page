@@ -77,7 +77,7 @@
                 <button onclick="switchTab('plans')" id="nav-plans" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-transparent text-gray-300 hover:text-white">Plans &amp; Services</button>
                 <!-- Pay button left as simple anchor per instruction -->
                 <a href="#pay-modal" onclick="openPayModal(event)" id="nav-pay" class="px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center text-gray-300 hover:text-white flex items-center justify-center gap-1">
-                    Pay <i class="fa-solid fa-external-link-alt text-xs opacity-75"></i>
+                    Pay</i>
                 </a>
                 <button onclick="switchTab('support')" id="nav-support" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-transparent text-gray-300 hover:text-white">Support</button>
                 <button onclick="switchTab('faqs')" id="nav-faqs" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-transparent text-gray-300 hover:text-white">FAQ's</button>
@@ -249,15 +249,15 @@
             <!-- Pricing Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Package 1: Basic Starter -->
-                <div class="service-card web content bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden flex flex-col">
-                    <div class="p-6 bg-gray-50 border-b border-gray-100">
+                <div class="service-card web content seo bg-white rounded-2xl shadow-xl border-2 border-brandPink overflow-hidden flex flex-col relative transform hover:-translate-y-1 transition">
+                    <div class="p-6 bg-pink-50/50 border-b border-pink-100">
                         <span class="text-xs font-bold text-brandPink uppercase tracking-wider">Starter</span>
                         <h3 class="text-2xl font-bold text-gray-900 mt-1">Basic Digital Setup</h3>
                         <div class="mt-4 flex items-baseline">
-                            <span class="text-4xl font-extrabold text-gray-900">$199</span>
+                            <span class="text-4xl font-extrabold text-brandPink">$199</span>
                             <span class="text-gray-500 text-sm ml-1">/ project</span>
                         </div>
-                        <p class="text-gray-500 text-xs mt-2">Ideal for personal blogs &amp; small business starters</p>
+                        <p class="text-gray-500 text-xs mt-2">Ideal for personal blogs & small business starters</p>
                     </div>
                     <div class="p-6 flex-grow space-y-4 text-sm text-gray-600">
                         <ul class="space-y-3">
@@ -269,9 +269,10 @@
                         </ul>
                     </div>
                     <div class="p-6 bg-gray-50 border-t border-gray-100">
-                        <button onclick="openOrderModal('Basic Digital Setup - $199')" class="w-full bg-brandDark hover:bg-black text-white font-bold py-2.5 rounded-lg transition">Select Package</button>
+                        <button onclick="openOrderModal('Basic Digital Setup - $199')" class="w-full bg-brandPink hover:bg-pink-700 text-white font-bold py-2.5 rounded-lg transition shadow ">Select Package</button>
                     </div>
                 </div>
+
 
                 <!-- Package 2: Professional (Highlighted) -->
                 <div class="service-card web content seo bg-white rounded-2xl shadow-xl border-2 border-brandPink overflow-hidden flex flex-col relative transform hover:-translate-y-1 transition">
@@ -295,20 +296,20 @@
                         </ul>
                     </div>
                     <div class="p-6 bg-gray-50 border-t border-gray-100">
-                        <button onclick="openOrderModal('Business Growth Package - $499')" class="w-full bg-brandPink hover:bg-pink-700 text-white font-bold py-2.5 rounded-lg transition shadow">Order Now<</button>
+                        <button onclick="openOrderModal('Business Growth Package - $499')" class="w-full bg-brandPink hover:bg-pink-700 text-white font-bold py-2.5 rounded-lg transition shadow ">Order Now</button>
                     </div>
                 </div>
 
                 <!-- Package 3: Dedicated Support / Enterprise -->
-                <div class="service-card seo support bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden flex flex-col">
-                    <div class="p-6 bg-gray-50 border-b border-gray-100">
+                <div class="service-card web content seo bg-white rounded-2xl shadow-xl border-2 border-brandPink overflow-hidden flex flex-col relative transform hover:-translate-y-1 transition">
+                    <div class="p-6 bg-pink-50/50 border-b border-pink-100">
                         <span class="text-xs font-bold text-brandPink uppercase tracking-wider">Retainer</span>
                         <h3 class="text-2xl font-bold text-gray-900 mt-1">Dedicated Specialist</h3>
                         <div class="mt-4 flex items-baseline">
-                            <span class="text-4xl font-extrabold text-gray-900">$899</span>
+                            <span class="text-4xl font-extrabold text-brandPink">$899</span>
                             <span class="text-gray-500 text-sm ml-1">/ month</span>
                         </div>
-                        <p class="text-gray-500 text-xs mt-2">Full-time dedicated virtual support &amp; content strategy</p>
+                        <p class="text-gray-500 text-xs mt-2">Full-time dedicated virtual support & content strategy</p>
                     </div>
                     <div class="p-6 flex-grow space-y-4 text-sm text-gray-600">
                         <ul class="space-y-3">
@@ -317,10 +318,11 @@
                             <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Unlimited Article Writing</li>
                             <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Weekly SMM &amp; SEO Reports</li>
                             <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Live Chat &amp; Email Customer Service</li>
+							<li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Basic & Business Package Included</li>
                         </ul>
                     </div>
                     <div class="p-6 bg-gray-50 border-t border-gray-100">
-                        <button onclick="openOrderModal('Dedicated Specialist - $899/mo')" class="w-full bg-brandDark hover:bg-black text-white font-bold py-2.5 rounded-lg transition">Hire Monthly</button>
+                        <button onclick="openOrderModal('Dedicated Specialist - $899')" class="w-full bg-brandPink hover:bg-pink-700 text-white font-bold py-2.5 rounded-lg transition shadow ">Hire Monthly</button>
                     </div>
                 </div>
             </div>
@@ -433,11 +435,11 @@
                 <!-- FAQ 2 -->
                 <div class="accordion-item bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
                     <button onclick="toggleAccordion(this)" class="w-full p-5 text-left font-semibold text-gray-800 flex justify-between items-center focus:outline-none hover:bg-gray-50">
-                        <span>Can you integrate these landing pages directly into Blogger?</span>
+                        <span>Can you integrate landing pages or CTA directly into any preferred domains?</span>
                         <i class="fa-solid fa-chevron-down chevron-icon text-brandPink transition-transform duration-300"></i>
                     </button>
                     <div class="accordion-content px-5 pb-5 text-gray-600 text-sm leading-relaxed">
-                        Yes! All code provided is clean, standard HTML/CSS/JavaScript with CDN references that work seamlessly in Blogger HTML Page posts or Blogger theme widgets.
+                        Yes! All code provided is clean, standard HTML/CSS/JavaScript with CDN references that work seamlessly in any domains.
                     </div>
                 </div>
 
@@ -489,7 +491,7 @@
                 <div class="md:col-span-2 space-y-4 text-gray-600 text-sm sm:text-base leading-relaxed">
                     <h4 class="text-xl font-bold text-gray-900">Professional Bio</h4>
                     <p>
-                        I am <strong>Audie Pino</strong>, a multi-disciplinary digital specialist committed to delivering high-caliber web development, content creation, and search/social marketing solutions.
+                        I am <strong>Audie Pino</strong>, a multi-disciplinary digital specialist committed to delivering high-caliber web development, content creation, customer support, adhoc task and data entry, and SEO/SMM marketing solutions.
                     </p>
                     <p>
                         With years of hands-on experience in full-stack web builds, professional video editing, article writing, and front-line customer operations, I bridge technical execution with business strategy to ensure maximum return on investment.
@@ -577,7 +579,7 @@
             <p class="text-gray-600 text-sm">Secure online payment portal for Audie Pino's client services.</p>
             <div class="bg-gray-50 p-4 rounded-xl text-left space-y-2 border border-gray-200 text-xs text-gray-700">
                 <p><strong>Accepted Gateways:</strong> PayPal, Stripe, Direct Bank Transfer</p>
-                <p><strong>Reference:</strong> Please attach your project invoice ID when sending payment.</p>
+                <p><strong>Reference:</strong> Please keep invoice for reference.</p>
             </div>
             <li><a href="https://www.paypal.com/ncp/payment/X46MAEGJHQC54?locale.x=en-US&country.x=US"><b>Proceed to Checkout</b></a></li>
             </button>
@@ -592,22 +594,8 @@
             </button>
             <h3 class="text-2xl font-bold text-gray-900">Confirm Order</h3>
             <p id="orderPackageTitle" class="text-brandPink font-bold text-lg"></p>
-            <form onsubmit="handleOrderSubmit(event)" class="space-y-3 text-left">
-                <div>
-                    <label class="text-xs font-semibold uppercase text-gray-600">Full Name</label>
-                    <input type="text" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-brandPink focus:outline-none">
-                </div>
-                <div>
-                    <label class="text-xs font-semibold uppercase text-gray-600">Email Address</label>
-                    <input type="email" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-brandPink focus:outline-none">
-                </div>
-                <div>
-                    <label class="text-xs font-semibold uppercase text-gray-600">Notes / Instructions</label>
-                    <textarea rows="2" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-brandPink focus:outline-none" placeholder="Optional details..."></textarea>
-                </div>
-                <button type="submit" class="w-full bg-brandDark hover:bg-black text-white font-bold py-3 rounded-lg transition shadow">
-                    Submit Order Request
-                </button>
+            <form onsubmit="handleOrderSubmit(event)" class="space-y-3 text-center">
+            <li><a href="https://www.paypal.com/ncp/payment/X46MAEGJHQC54?locale.x=en-US&country.x=US"><b>Proceed to Checkout</b></a></li>
             </form>
         </div>
     </div>
