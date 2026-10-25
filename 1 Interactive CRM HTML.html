@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audie Pino - Top-notch Web Developer & Freelance Specialist</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandPink: '#e00075',
+                        brandDark: '#2b2b2b',
+                        brandBlue: '#007bff',
+                        brandBlueHover: '#0056b3'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .accordion-item.active .accordion-content {
+            max-height: 500px;
+        }
+        .accordion-item.active .chevron-icon {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- MAIN HEADER SECTION (Matching exact visual request) -->
+    <header class="w-full bg-brandPink text-white py-6 px-4 text-center shadow-md">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-2">Audie Pino</h1>
+            <p class="text-xs sm:text-sm md:text-base font-normal max-w-4xl mx-auto leading-relaxed opacity-95">
+                Your Trusted Top-notch Web Developer, video/Content Editor, SEO &amp; SMM Specialist, News and Business Article Maker, and Experienced Customer Support.
+            </p>
+        </div>
+    </header>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="w-full bg-brandDark text-white sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row items-center justify-between">
+            <!-- Mobile Menu Toggle Button -->
+            <div class="w-full lg:w-auto flex justify-between items-center py-3 lg:py-0 border-b lg:border-b-0 border-gray-700">
+                <span class="text-sm font-semibold uppercase tracking-wider lg:hidden">Menu</span>
+                <button id="mobileMenuBtn" class="lg:hidden text-white focus:outline-none p-2 rounded hover:bg-gray-800">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Navigation Links -->
+            <div id="navLinks" class="hidden lg:flex flex-col lg:flex-row w-full lg:w-auto items-center py-2 lg:py-0 space-y-2 lg:space-y-0 text-sm font-medium">
+                <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-brandPink font-bold text-white">Home</button>
+                <button onclick="switchTab('plans')" id="nav-plans" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-transparent text-gray-300 hover:text-white">Plans &amp; Services</button>
+                <!-- Pay button left as simple anchor per instruction -->
+                <a href="#pay-modal" onclick="openPayModal(event)" id="nav-pay" class="px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center text-gray-300 hover:text-white flex items-center justify-center gap-1">
+                    Pay <i class="fa-solid fa-external-link-alt text-xs opacity-75"></i>
+                </a>
+                <button onclick="switchTab('support')" id="nav-support" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-transparent text-gray-300 hover:text-white">Support</button>
+                <button onclick="switchTab('faqs')" id="nav-faqs" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-transparent text-gray-300 hover:text-white">FAQ's</button>
+                <button onclick="switchTab('about')" id="nav-about" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-transparent text-gray-300 hover:text-white">About</button>
+            </div>
+
+            <!-- Right Search Bar -->
+            <div class="w-full lg:w-auto py-3 lg:py-2">
+                <form onsubmit="handleSearch(event)" class="flex items-center w-full lg:w-80">
+                    <input type="text" id="searchInput" placeholder="Search..." class="w-full px-3 py-1.5 text-gray-800 bg-white rounded-l focus:outline-none text-sm border-0">
+                    <button type="submit" class="bg-brandBlue hover:bg-brandBlueHover text-white px-5 py-1.5 rounded-r font-semibold text-sm transition-colors flex items-center gap-1 shrink-0">
+                        Search
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN BODY CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- GLOBAL SEARCH RESULT NOTIFICATION -->
+        <div id="searchNotification" class="hidden mb-6 p-4 bg-blue-50 border-l-4 border-brandBlue text-blue-800 rounded shadow-sm flex justify-between items-center">
+            <span id="searchText"></span>
+            <button onclick="clearSearch()" class="text-blue-800 font-bold text-sm underline hover:text-black">Clear Search</button>
+        </div>
+
+        <!-- ================= TAB 1: HOME ================= -->
+        <section id="tab-home" class="tab-content active space-y-10">
+            <!-- Hero Banner -->
+            <div class="bg-gradient-to-r from-gray-900 via-brandDark to-gray-900 text-white rounded-2xl p-8 sm:p-12 shadow-xl relative overflow-hidden">
+                <div class="relative z-10 max-w-3xl space-y-4">
+                    <span class="inline-block px-3 py-1 bg-brandPink text-white text-xs font-bold uppercase rounded-full tracking-wider">All-In-One Freelance Solution</span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold leading-tight">Empowering Your Business With High-Impact Digital Solutions</h2>
+                    <p class="text-gray-300 text-base sm:text-lg">
+                        From bespoke web development to engaging video edits, SEO strategy, and high-converting copy—get full-spectrum digital assistance from a proven professional.
+                    </p>
+                    <div class="pt-4 flex flex-wrap gap-4">
+                        <button onclick="switchTab('plans')" class="bg-brandPink hover:bg-pink-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:shadow-xl transition duration-200">
+                            Explore Services
+                        </button>
+                        <button onclick="switchTab('support')" class="bg-transparent hover:bg-white/10 text-white border border-white/30 font-semibold py-3 px-8 rounded-lg transition duration-200">
+                            Contact Support
+                        </button>
+                    </div>
+                </div>
+                <div class="absolute right-0 bottom-0 opacity-10 hidden md:block">
+                    <i class="fa-solid fa-laptop-code text-[260px]"></i>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white p-6 rounded-xl shadow-sm text-center border-b-4 border-brandPink">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-brandDark">8+</div>
+                    <div class="text-xs sm:text-sm text-gray-500 uppercase font-semibold mt-1">Years Experience</div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm text-center border-b-4 border-brandPink">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-brandDark">250+</div>
+                    <div class="text-xs sm:text-sm text-gray-500 uppercase font-semibold mt-1">Projects Delivered</div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm text-center border-b-4 border-brandPink">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-brandDark">99%</div>
+                    <div class="text-xs sm:text-sm text-gray-500 uppercase font-semibold mt-1">Client Satisfaction</div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm text-center border-b-4 border-brandPink">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-brandDark">24/7</div>
+                    <div class="text-xs sm:text-sm text-gray-500 uppercase font-semibold mt-1">Customer Support</div>
+                </div>
+            </div>
+
+            <!-- Core Services Grid -->
+            <div>
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl sm:text-3xl font-bold text-gray-900">Core Expertise</h3>
+                    <p class="text-gray-600 mt-2">Comprehensive skills tailored to elevate your online presence</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Card 1 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border border-gray-100 flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 bg-pink-100 text-brandPink rounded-lg flex items-center justify-center text-2xl mb-4">
+                                <i class="fa-solid fa-code"></i>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">Web Development</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed">Tailored, fully responsive websites, Blogger themes, React web apps, and CMS integrations optimized for performance.</p>
+                        </div>
+                        <button onclick="switchTab('plans')" class="mt-6 text-brandPink font-bold text-sm hover:underline text-left">View Plans &rarr;</button>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border border-gray-100 flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 bg-blue-100 text-brandBlue rounded-lg flex items-center justify-center text-2xl mb-4">
+                                <i class="fa-solid fa-video"></i>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">Video & Content Editing</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed">Engaging social media reels, YouTube videos, corporate promotional clips, and high-impact visual graphics.</p>
+                        </div>
+                        <button onclick="switchTab('plans')" class="mt-6 text-brandBlue font-bold text-sm hover:underline text-left">View Details &rarr;</button>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border border-gray-100 flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center text-2xl mb-4">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">SEO & SMM Specialist</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed">Data-driven search engine optimization, keyword research, link building, and targeted social media marketing campaigns.</p>
+                        </div>
+                        <button onclick="switchTab('plans')" class="mt-6 text-purple-600 font-bold text-sm hover:underline text-left">Learn More &rarr;</button>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border border-gray-100 flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-2xl mb-4">
+                                <i class="fa-solid fa-newspaper"></i>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">News & Business Articles</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed">Well-researched, SEO-optimized articles, news write-ups, press releases, and compelling blog posts.</p>
+                        </div>
+                        <button onclick="switchTab('plans')" class="mt-6 text-emerald-600 font-bold text-sm hover:underline text-left">Read Samples &rarr;</button>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border border-gray-100 flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-2xl mb-4">
+                                <i class="fa-solid fa-headset"></i>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">Customer Support</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed">Professional live chat management, ticket handling, email assistance, and reliable client relationship support.</p>
+                        </div>
+                        <button onclick="switchTab('plans')" class="mt-6 text-amber-600 font-bold text-sm hover:underline text-left">Get Assistance &rarr;</button>
+                    </div>
+
+                    <!-- Card 6: Quick Contact Card -->
+                    <div class="bg-gradient-to-br from-brandDark to-black text-white p-6 rounded-xl shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center text-2xl mb-4 text-white">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">Need a Custom Quote?</h4>
+                            <p class="text-gray-300 text-sm leading-relaxed">Have a unique project scope? Send a direct request and receive a custom offer tailored to your budget.</p>
+                        </div>
+                        <button onclick="switchTab('support')" class="mt-6 bg-brandPink text-white py-2 px-4 rounded font-bold text-sm hover:bg-pink-700 transition text-center">Get Custom Proposal</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 2: PLANS & SERVICES ================= -->
+        <section id="tab-plans" class="tab-content space-y-8">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl font-extrabold text-gray-900">Service Packages & Pricing</h2>
+                <p class="text-gray-600 mt-2">Transparent pricing designed to fit startups, business owners, and digital creators.</p>
+            </div>
+
+            <!-- Service Filter Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 border-b border-gray-200 pb-4">
+                <button onclick="filterServices('all')" class="service-filter-btn active bg-brandPink text-white px-4 py-2 rounded-full text-sm font-semibold">All Packages</button>
+                <button onclick="filterServices('web')" class="service-filter-btn bg-gray-200 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded-full text-sm font-semibold">Web Development</button>
+                <button onclick="filterServices('content')" class="service-filter-btn bg-gray-200 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded-full text-sm font-semibold">Video &amp; Articles</button>
+                <button onclick="filterServices('seo')" class="service-filter-btn bg-gray-200 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded-full text-sm font-semibold">SEO &amp; SMM</button>
+            </div>
+
+            <!-- Pricing Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Package 1: Basic Starter -->
+                <div class="service-card web content bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden flex flex-col">
+                    <div class="p-6 bg-gray-50 border-b border-gray-100">
+                        <span class="text-xs font-bold text-brandPink uppercase tracking-wider">Starter</span>
+                        <h3 class="text-2xl font-bold text-gray-900 mt-1">Basic Digital Setup</h3>
+                        <div class="mt-4 flex items-baseline">
+                            <span class="text-4xl font-extrabold text-gray-900">$199</span>
+                            <span class="text-gray-500 text-sm ml-1">/ project</span>
+                        </div>
+                        <p class="text-gray-500 text-xs mt-2">Ideal for personal blogs &amp; small business starters</p>
+                    </div>
+                    <div class="p-6 flex-grow space-y-4 text-sm text-gray-600">
+                        <ul class="space-y-3">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Custom Blogger / HTML Layout</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> 2 SEO-Optimized Articles (800 words)</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Mobile Responsive Design</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Basic Meta Tag Setup</li>
+                            <li class="flex items-center text-gray-400 line-through"><i class="fa-solid fa-xmark text-gray-300 mr-2"></i> Video Editing</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-gray-50 border-t border-gray-100">
+                        <button onclick="openOrderModal('Basic Digital Setup - $199')" class="w-full bg-brandDark hover:bg-black text-white font-bold py-2.5 rounded-lg transition">Select Package</button>
+                    </div>
+                </div>
+
+                <!-- Package 2: Professional (Highlighted) -->
+                <div class="service-card web content seo bg-white rounded-2xl shadow-xl border-2 border-brandPink overflow-hidden flex flex-col relative transform hover:-translate-y-1 transition">
+                    <div class="bg-brandPink text-white text-xs font-bold text-center py-1 uppercase tracking-wider">Most Popular</div>
+                    <div class="p-6 bg-pink-50/50 border-b border-pink-100">
+                        <span class="text-xs font-bold text-brandPink uppercase tracking-wider">Growth</span>
+                        <h3 class="text-2xl font-bold text-gray-900 mt-1">Business Growth Package</h3>
+                        <div class="mt-4 flex items-baseline">
+                            <span class="text-4xl font-extrabold text-brandPink">$499</span>
+                            <span class="text-gray-500 text-sm ml-1">/ project</span>
+                        </div>
+                        <p class="text-gray-500 text-xs mt-2">Complete web presence and marketing combo</p>
+                    </div>
+                    <div class="p-6 flex-grow space-y-4 text-sm text-gray-600">
+                        <ul class="space-y-3">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Full Web Development / Custom Site</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> 5 Video Reels / Content Edits</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Complete On-Page &amp; Off-Page SEO</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> 5 Business / News Articles</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Social Media Management (1 month)</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-gray-50 border-t border-gray-100">
+                        <button onclick="openOrderModal('Business Growth Package - $499')" class="w-full bg-brandPink hover:bg-pink-700 text-white font-bold py-2.5 rounded-lg transition shadow">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Package 3: Dedicated Support / Enterprise -->
+                <div class="service-card seo support bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden flex flex-col">
+                    <div class="p-6 bg-gray-50 border-b border-gray-100">
+                        <span class="text-xs font-bold text-brandPink uppercase tracking-wider">Retainer</span>
+                        <h3 class="text-2xl font-bold text-gray-900 mt-1">Dedicated Specialist</h3>
+                        <div class="mt-4 flex items-baseline">
+                            <span class="text-4xl font-extrabold text-gray-900">$899</span>
+                            <span class="text-gray-500 text-sm ml-1">/ month</span>
+                        </div>
+                        <p class="text-gray-500 text-xs mt-2">Full-time dedicated virtual support &amp; content strategy</p>
+                    </div>
+                    <div class="p-6 flex-grow space-y-4 text-sm text-gray-600">
+                        <ul class="space-y-3">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> 40 hrs/week Dedicated Support</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Ongoing Web Maintenance</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Unlimited Article Writing</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Weekly SMM &amp; SEO Reports</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Live Chat &amp; Email Customer Service</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-gray-50 border-t border-gray-100">
+                        <button onclick="openOrderModal('Dedicated Specialist - $899/mo')" class="w-full bg-brandDark hover:bg-black text-white font-bold py-2.5 rounded-lg transition">Hire Monthly</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 3: SUPPORT ================= -->
+        <section id="tab-support" class="tab-content space-y-8">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl font-extrabold text-gray-900">Support Center &amp; Contact</h2>
+                <p class="text-gray-600 mt-2">Have questions or need assistance? Get in touch immediately.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Contact Information Card -->
+                <div class="bg-brandDark text-white p-8 rounded-2xl shadow-lg space-y-6">
+                    <h3 class="text-xl font-bold border-b border-gray-700 pb-3">Get in Touch</h3>
+                    <p class="text-gray-300 text-sm">Direct lines for technical support, project inquiries, and consultation.</p>
+                    
+                    <div class="space-y-4 text-sm">
+                        <div class="flex items-start space-x-3">
+                            <i class="fa-solid fa-envelope text-brandPink text-lg mt-1"></i>
+                            <div>
+                                <div class="font-semibold">Email</div>
+                                <div class="text-gray-300">support@audiepino.com</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fa-solid fa-clock text-brandPink text-lg mt-1"></i>
+                            <div>
+                                <div class="font-semibold">Working Hours</div>
+                                <div class="text-gray-300">Mon - Sat: 8:00 AM - 10:00 PM (EST)</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fa-solid fa-bolt text-brandPink text-lg mt-1"></i>
+                            <div>
+                                <div class="font-semibold">Average Response Time</div>
+                                <div class="text-gray-300">Under 1 Hour</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-gray-700">
+                        <button onclick="openChatSim()" class="w-full bg-brandBlue hover:bg-blue-600 text-white font-bold py-3 rounded-lg transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-comments"></i> Start Live Chat
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Support Ticket Form -->
+                <div class="lg:col-span-2 bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Submit a Ticket / Inquiry</h3>
+                    <form onsubmit="handleTicketSubmit(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-700 uppercase mb-1">Your Name</label>
+                                <input type="text" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brandPink focus:outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-700 uppercase mb-1">Your Email</label>
+                                <input type="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brandPink focus:outline-none text-sm">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 uppercase mb-1">Subject</label>
+                            <input type="text" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brandPink focus:outline-none text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 uppercase mb-1">Service Category</label>
+                            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brandPink focus:outline-none text-sm">
+                                <option>Web Development Inquiry</option>
+                                <option>Video Editing & Content</option>
+                                <option>SEO & Social Media Marketing</option>
+                                <option>News & Article Writing</option>
+                                <option>Customer Support Retainer</option>
+                                <option>Payment & Billing Issue</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 uppercase mb-1">Message Detail</label>
+                            <textarea rows="4" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brandPink focus:outline-none text-sm" placeholder="Please describe how Audie can assist you..."></textarea>
+                        </div>
+                        <button type="submit" class="bg-brandPink hover:bg-pink-700 text-white font-bold py-3 px-6 rounded-lg transition shadow">
+                            Send Ticket
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 4: FAQ'S ================= -->
+        <section id="tab-faqs" class="tab-content space-y-8">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl font-extrabold text-gray-900">Frequently Asked Questions</h2>
+                <p class="text-gray-600 mt-2">Find quick answers regarding services, delivery times, and workflows.</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto space-y-4">
+                <!-- FAQ 1 -->
+                <div class="accordion-item bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+                    <button onclick="toggleAccordion(this)" class="w-full p-5 text-left font-semibold text-gray-800 flex justify-between items-center focus:outline-none hover:bg-gray-50">
+                        <span>What turn-around times can I expect for Web Development projects?</span>
+                        <i class="fa-solid fa-chevron-down chevron-icon text-brandPink transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-5 pb-5 text-gray-600 text-sm leading-relaxed">
+                        Standard Web Development / Blogger template customizations typically take 3 to 7 business days depending on complexity. Full custom web application projects are scheduled based on detailed project scopes.
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="accordion-item bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+                    <button onclick="toggleAccordion(this)" class="w-full p-5 text-left font-semibold text-gray-800 flex justify-between items-center focus:outline-none hover:bg-gray-50">
+                        <span>Can you integrate these landing pages directly into Blogger?</span>
+                        <i class="fa-solid fa-chevron-down chevron-icon text-brandPink transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-5 pb-5 text-gray-600 text-sm leading-relaxed">
+                        Yes! All code provided is clean, standard HTML/CSS/JavaScript with CDN references that work seamlessly in Blogger HTML Page posts or Blogger theme widgets.
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="accordion-item bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+                    <button onclick="toggleAccordion(this)" class="w-full p-5 text-left font-semibold text-gray-800 flex justify-between items-center focus:outline-none hover:bg-gray-50">
+                        <span>How does the SEO and Social Media Marketing service work?</span>
+                        <i class="fa-solid fa-chevron-down chevron-icon text-brandPink transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-5 pb-5 text-gray-600 text-sm leading-relaxed">
+                        We begin with an audit of your existing site or social accounts, identify target keywords and audience demographics, create tailored content schedules, and optimize meta headers and backlinks.
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="accordion-item bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+                    <button onclick="toggleAccordion(this)" class="w-full p-5 text-left font-semibold text-gray-800 flex justify-between items-center focus:outline-none hover:bg-gray-50">
+                        <span>What payment methods are supported?</span>
+                        <i class="fa-solid fa-chevron-down chevron-icon text-brandPink transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-5 pb-5 text-gray-600 text-sm leading-relaxed">
+                        Clicking the "Pay" button in the navigation opens the payment interface. We accept major credit cards, PayPal, and online wire transfers depending on project terms.
+                    </div>
+                </div>
+
+                <!-- FAQ 5 -->
+                <div class="accordion-item bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+                    <button onclick="toggleAccordion(this)" class="w-full p-5 text-left font-semibold text-gray-800 flex justify-between items-center focus:outline-none hover:bg-gray-50">
+                        <span>Do you offer ongoing monthly support retainers?</span>
+                        <i class="fa-solid fa-chevron-down chevron-icon text-brandPink transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-5 pb-5 text-gray-600 text-sm leading-relaxed">
+                        Yes, you can hire Audie Pino on a monthly dedicated retainer for ongoing customer support, regular blog writing, site maintenance, and social media management.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 5: ABOUT ================= -->
+        <section id="tab-about" class="tab-content space-y-10">
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <div class="text-center">
+                    <div class="w-36 h-36 bg-gradient-to-tr from-brandPink to-brandBlue rounded-full mx-auto flex items-center justify-center text-white text-5xl font-bold shadow-lg border-4 border-white">
+                        AP
+                    </div>
+                    <h3 class="text-2xl font-bold mt-4">Audie Pino</h3>
+                    <p class="text-brandPink font-medium text-sm">Web Developer &amp; Content Specialist</p>
+                </div>
+                <div class="md:col-span-2 space-y-4 text-gray-600 text-sm sm:text-base leading-relaxed">
+                    <h4 class="text-xl font-bold text-gray-900">Professional Bio</h4>
+                    <p>
+                        I am <strong>Audie Pino</strong>, a multi-disciplinary digital specialist committed to delivering high-caliber web development, content creation, and search/social marketing solutions.
+                    </p>
+                    <p>
+                        With years of hands-on experience in full-stack web builds, professional video editing, article writing, and front-line customer operations, I bridge technical execution with business strategy to ensure maximum return on investment.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Skills Progress Bars -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 space-y-6">
+                <h3 class="text-2xl font-bold text-gray-900">Technical Mastery</h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-sm font-semibold mb-1">
+                            <span>Web Development (HTML/CSS/JS/Blogger/React)</span>
+                            <span class="text-brandPink">95%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                            <div class="bg-brandPink h-2.5 rounded-full" style="width: 95%"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm font-semibold mb-1">
+                            <span>SEO &amp; Social Media Marketing</span>
+                            <span class="text-brandPink">90%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                            <div class="bg-brandPink h-2.5 rounded-full" style="width: 90%"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm font-semibold mb-1">
+                            <span>Video &amp; Multimedia Editing</span>
+                            <span class="text-brandPink">88%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                            <div class="bg-brandPink h-2.5 rounded-full" style="width: 88%"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm font-semibold mb-1">
+                            <span>News &amp; Business Article Writing</span>
+                            <span class="text-brandPink">92%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                            <div class="bg-brandPink h-2.5 rounded-full" style="width: 92%"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm font-semibold mb-1">
+                            <span>Customer Support &amp; Ticket Handling</span>
+                            <span class="text-brandPink">96%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                            <div class="bg-brandPink h-2.5 rounded-full" style="width: 96%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-brandDark text-gray-400 py-8 border-t border-gray-800 text-sm mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-3">
+            <p class="text-white font-semibold">Audie Pino &mdash; Your Trusted Top-notch Digital Specialist</p>
+            <p>&copy; <span id="year"></span> Audie Pino. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL 1: PAY MODAL (Triggered by the Pay button anchor) -->
+    <div id="payModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative text-center space-y-4">
+            <button onclick="closePayModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <div class="w-16 h-16 bg-pink-100 text-brandPink rounded-full flex items-center justify-center text-2xl mx-auto">
+                <i class="fa-solid fa-credit-card"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900">Payment Center</h3>
+            <p class="text-gray-600 text-sm">Secure online payment portal for Audie Pino's client services.</p>
+            <div class="bg-gray-50 p-4 rounded-xl text-left space-y-2 border border-gray-200 text-xs text-gray-700">
+                <p><strong>Accepted Gateways:</strong> PayPal, Stripe, Direct Bank Transfer</p>
+                <p><strong>Reference:</strong> Please attach your project invoice ID when sending payment.</p>
+            </div>
+            <button onclick="alert('Redirecting to secure gateway...'); closePayModal();" class="w-full bg-brandPink hover:bg-pink-700 text-white font-bold py-3 rounded-lg transition shadow">
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL 2: ORDER PACKAGE MODAL -->
+    <div id="orderModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative text-center space-y-4">
+            <button onclick="closeOrderModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <h3 class="text-2xl font-bold text-gray-900">Confirm Order</h3>
+            <p id="orderPackageTitle" class="text-brandPink font-bold text-lg"></p>
+            <form onsubmit="handleOrderSubmit(event)" class="space-y-3 text-left">
+                <div>
+                    <label class="text-xs font-semibold uppercase text-gray-600">Full Name</label>
+                    <input type="text" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-brandPink focus:outline-none">
+                </div>
+                <div>
+                    <label class="text-xs font-semibold uppercase text-gray-600">Email Address</label>
+                    <input type="email" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-brandPink focus:outline-none">
+                </div>
+                <div>
+                    <label class="text-xs font-semibold uppercase text-gray-600">Notes / Instructions</label>
+                    <textarea rows="2" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-brandPink focus:outline-none" placeholder="Optional details..."></textarea>
+                </div>
+                <button type="submit" class="w-full bg-brandDark hover:bg-black text-white font-bold py-3 rounded-lg transition shadow">
+                    Submit Order Request
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 3: LIVE CHAT SIMULATION -->
+    <div id="chatSim" class="fixed bottom-4 right-4 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl z-50 border border-gray-200 hidden overflow-hidden flex flex-col">
+        <div class="bg-brandDark text-white p-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                <span class="font-bold text-sm">Audie Pino - Live Support</span>
+            </div>
+            <button onclick="closeChatSim()" class="text-gray-300 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div id="chatMessages" class="p-4 h-64 overflow-y-auto space-y-3 text-sm bg-gray-50">
+            <div class="bg-white p-3 rounded-lg border border-gray-200 shadow-sm max-w-[85%] text-gray-800">
+                Hello! Thanks for visiting. How can I assist you with your web or content project today?
+            </div>
+        </div>
+        <form onsubmit="sendChatMessage(event)" class="p-2 border-t border-gray-200 bg-white flex">
+            <input type="text" id="chatInput" placeholder="Type a message..." class="flex-grow px-3 py-1.5 text-sm focus:outline-none" required>
+            <button type="submit" class="bg-brandPink text-white px-4 py-1.5 rounded font-semibold text-sm hover:bg-pink-700">Send</button>
+        </form>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Set Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('hidden');
+        });
+
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(t => t.classList.remove('active'));
+
+            // Show selected tab
+            const activeTab = document.getElementById(`tab-${tabId}`);
+            if(activeTab) {
+                activeTab.classList.add('active');
+            }
+
+            // Update Nav Styling
+            const navBtns = document.querySelectorAll('.nav-btn');
+            navBtns.forEach(btn => {
+                btn.classList.remove('border-brandPink', 'text-white', 'font-bold');
+                btn.classList.add('border-transparent', 'text-gray-300');
+            });
+
+            const currentNavBtn = document.getElementById(`nav-${tabId}`);
+            if(currentNavBtn) {
+                currentNavBtn.classList.add('border-brandPink', 'text-white', 'font-bold');
+                currentNavBtn.classList.remove('border-transparent', 'text-gray-300');
+            }
+
+            // Close Mobile Nav if open
+            if(window.innerWidth < 1024) {
+                navLinks.classList.add('hidden');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Search Bar Functionality
+        function handleSearch(event) {
+            event.preventDefault();
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            if(!query) return;
+
+            const notif = document.getElementById('searchNotification');
+            const notifText = document.getElementById('searchText');
+
+            // Search logic across tabs
+            if(query.includes('faq') || query.includes('question')) {
+                switchTab('faqs');
+            } else if(query.includes('plan') || query.includes('price') || query.includes('cost') || query.includes('service')) {
+                switchTab('plans');
+            } else if(query.includes('support') || query.includes('contact') || query.includes('email')) {
+                switchTab('support');
+            } else if(query.includes('about') || query.includes('bio') || query.includes('skill')) {
+                switchTab('about');
+            } else {
+                switchTab('home');
+            }
+
+            notifText.textContent = `Showing search results for: "${query}"`;
+            notif.classList.remove('hidden');
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('searchNotification').classList.add('hidden');
+        }
+
+        // Pricing Category Filter
+        function filterServices(category) {
+            const cards = document.querySelectorAll('.service-card');
+            const filterBtns = document.querySelectorAll('.service-filter-btn');
+
+            filterBtns.forEach(btn => {
+                btn.classList.remove('bg-brandPink', 'text-white');
+                btn.classList.add('bg-gray-200', 'text-gray-700');
+            });
+
+            event.currentTarget.classList.remove('bg-gray-200', 'text-gray-700');
+            event.currentTarget.classList.add('bg-brandPink', 'text-white');
+
+            cards.forEach(card => {
+                if(category === 'all' || card.classList.contains(category)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Accordion Toggle
+        function toggleAccordion(btn) {
+            const item = btn.parentElement;
+            item.classList.toggle('active');
+        }
+
+        // Pay Modal Functions
+        function openPayModal(event) {
+            event.preventDefault();
+            document.getElementById('payModal').classList.remove('hidden');
+        }
+        function closePayModal() {
+            document.getElementById('payModal').classList.add('hidden');
+        }
+
+        // Order Modal Functions
+        function openOrderModal(packageTitle) {
+            document.getElementById('orderPackageTitle').textContent = packageTitle;
+            document.getElementById('orderModal').classList.remove('hidden');
+        }
+        function closeOrderModal() {
+            document.getElementById('orderModal').classList.add('hidden');
+        }
+        function handleOrderSubmit(event) {
+            event.preventDefault();
+            alert('Thank you! Your order request has been received. Audie will contact you within 24 hours.');
+            closeOrderModal();
+        }
+
+        // Support Ticket Form Submit
+        function handleTicketSubmit(event) {
+            event.preventDefault();
+            alert('Your ticket has been successfully submitted! Audie Pino will respond to your email shortly.');
+            event.target.reset();
+        }
+
+        // Live Chat Simulation
+        function openChatSim() {
+            document.getElementById('chatSim').classList.remove('hidden');
+        }
+        function closeChatSim() {
+            document.getElementById('chatSim').classList.add('hidden');
+        }
+        function sendChatMessage(event) {
+            event.preventDefault();
+            const input = document.getElementById('chatInput');
+            const messages = document.getElementById('chatMessages');
+            const text = input.value.trim();
+
+            if(!text) return;
+
+            // User message
+            const userMsg = document.createElement('div');
+            userMsg.className = "bg-brandPink text-white p-3 rounded-lg shadow-sm max-w-[85%] ml-auto text-sm";
+            userMsg.textContent = text;
+            messages.appendChild(userMsg);
+
+            input.value = '';
+            messages.scrollTop = messages.scrollHeight;
+
+            // Automated reply simulation
+            setTimeout(() => {
+                const autoMsg = document.createElement('div');
+                autoMsg.className = "bg-white p-3 rounded-lg border border-gray-200 shadow-sm max-w-[85%] text-gray-800 text-sm";
+                autoMsg.textContent = "Thank you for your message! Audie is currently reviewing inquiries and will respond to you directly.";
+                messages.appendChild(autoMsg);
+                messages.scrollTop = messages.scrollHeight;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
