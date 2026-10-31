@@ -46,6 +46,101 @@
         .accordion-item.active .chevron-icon {
             transform: rotate(180deg);
         }
+		```css
+/* Pricing card base */
+.pricing-card {
+    position: relative;
+    isolation: isolate;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+
+/* Selected card glow */
+.pricing-card.selected {
+    border-color: #ec008c !important;
+    box-shadow:
+        0 0 8px rgba(236, 0, 140, 0.8),
+        0 0 20px rgba(236, 0, 140, 0.5),
+        0 0 40px rgba(236, 0, 140, 0.25);
+    transform: translateY(-5px) scale(1.02);
+    animation: pricingShine 1.2s ease-in-out;
+}
+
+/* Soft animated shine */
+.pricing-card.selected::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 2;
+
+    background: linear-gradient(
+        115deg,
+        transparent 20%,
+        rgba(255, 255, 255, 0.55) 45%,
+        transparent 65%
+    );
+
+    background-size: 250% 100%;
+    animation: shineSweep 0.9s ease-out forwards;
+}
+
+/* Glow animation */
+@keyframes pricingShine {
+    0% {
+        box-shadow: 0 0 0 rgba(236, 0, 140, 0);
+    }
+
+    50% {
+        box-shadow:
+            0 0 18px rgba(236, 0, 140, 0.9),
+            0 0 35px rgba(236, 0, 140, 0.6);
+    }
+
+    100% {
+        box-shadow:
+            0 0 8px rgba(236, 0, 140, 0.8),
+            0 0 20px rgba(236, 0, 140, 0.5),
+            0 0 40px rgba(236, 0, 140, 0.25);
+    }
+}
+
+/* Light sweeps across the card */
+@keyframes shineSweep {
+    from {
+        background-position: 150% 0;
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    to {
+        background-position: -150% 0;
+        opacity: 0;
+    }
+}
+
+/* Keyboard accessibility */
+.pricing-card:focus-visible {
+    outline: 3px solid #ec008c;
+    outline-offset: 4px;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .pricing-card,
+    .pricing-card.selected,
+    .pricing-card.selected::after {
+        animation: none;
+        transition: none;
+    }
+}
+```
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800 font-sans antialiased min-h-screen flex flex-col">
@@ -136,7 +231,7 @@
                     <div class="text-xs sm:text-sm text-gray-500 uppercase font-semibold mt-1">Years Experience</div>
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-sm text-center border-b-4 border-brandPink">
-                    <div class="text-3xl sm:text-4xl font-extrabold text-brandDark">250+</div>
+                    <div class="text-3xl sm:text-4xl font-extrabold text-brandDark">100+</div>
                     <div class="text-xs sm:text-sm text-gray-500 uppercase font-semibold mt-1">Projects Delivered</div>
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-sm text-center border-b-4 border-brandPink">
@@ -198,11 +293,13 @@
                             <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-2xl mb-4">
                                 <i class="fa-solid fa-newspaper"></i>
                             </div>
+							
                             <h4 class="text-xl font-bold mb-2">News & Business Articles</h4>
                             <p class="text-gray-600 text-sm leading-relaxed">Well-researched, SEO-optimized articles, news write-ups, press releases, and compelling blog posts.</p>
                         </div>
                         <button onclick="switchTab('plans')" class="mt-6 text-emerald-600 font-bold text-sm hover:underline text-left">Read Samples &rarr;</button>
                     </div>
+
 
                     <!-- Card 5 -->
                     <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border border-gray-100 flex flex-col justify-between">
@@ -215,6 +312,7 @@
                         </div>
                         <button onclick="switchTab('plans')" class="mt-6 text-amber-600 font-bold text-sm hover:underline text-left">Get Assistance &rarr;</button>
                     </div>
+
 
                     <!-- Card 6: Quick Contact Card -->
                     <div class="bg-gradient-to-br from-brandDark to-black text-white p-6 rounded-xl shadow-sm flex flex-col justify-between">
@@ -245,90 +343,192 @@
                 <button onclick="filterServices('content')" class="service-filter-btn bg-gray-200 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded-full text-sm font-semibold">Video &amp; Articles</button>
                 <button onclick="filterServices('seo')" class="service-filter-btn bg-gray-200 text-gray-700 hover:bg-gray-300 px-4 py-2 rounded-full text-sm font-semibold">SEO &amp; SMM</button>
             </div>
-
-            <!-- Pricing Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Package 1: Basic Starter -->
-                <div class="service-card web content seo bg-white rounded-2xl shadow-xl border-2 border-brandPink overflow-hidden flex flex-col relative transform hover:-translate-y-1 transition">
-                    <div class="p-6 bg-pink-50/50 border-b border-pink-100">
-                        <span class="text-xs font-bold text-brandPink uppercase tracking-wider">Basic</span>
-                        <h3 class="text-2xl font-bold text-gray-900 mt-1">Basic Digital Setup</h3>
-                        <div class="mt-4 flex items-baseline">
-                            <span class="text-4xl font-extrabold text-brandPink">$299</span>
-                            <span class="text-gray-500 text-sm ml-1">/ project</span>
-                        </div>
-                        <p class="text-gray-500 text-xs mt-2">Ideal for personal blogs & small business starters</p>
-                    </div>
-                    <div class="p-6 flex-grow space-y-4 text-sm text-gray-600">
-                        <ul class="space-y-3">
-                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Custom Website / HTML Layout</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> 2 SEO-Optimized Articles (800 words)</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Mobile Responsive Design</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Basic Meta Tag Setup</li>
-                            <li class="flex items-center text-gray-400 line-through"><i class="fa-solid fa-xmark text-gray-300 mr-2"></i> Video Editing</li>
-                        </ul>
-                    </div>
-                    <div class="p-6 bg-gray-50 border-t border-gray-100">
-                        <button onclick="openOrderModal('Basic Digital Setup - $299')" class="w-full bg-brandPink hover:bg-pink-700 text-white font-bold py-2.5 rounded-lg transition shadow ">Select Package</button>
-                    </div>
-                </div>
+			
+			
 
 
-                <!-- Package 2: Professional (Highlighted) -->
-                <div class="service-card web content seo bg-white rounded-2xl shadow-xl border-2 border-brandPink overflow-hidden flex flex-col relative transform hover:-translate-y-1 transition">
-                    <div class="bg-brandPink text-white text-xs font-bold text-center py-1 uppercase tracking-wider">Most Popular</div>
-                    <div class="p-6 bg-pink-50/50 border-b border-pink-100">
-                        <span class="text-xs font-bold text-brandPink uppercase tracking-wider">Preferred</span>
-                        <h3 class="text-2xl font-bold text-gray-900 mt-1">Business Preferred Package</h3>
-                        <div class="mt-4 flex items-baseline">
-                            <span class="text-4xl font-extrabold text-brandPink">$899</span>
-                            <span class="text-gray-500 text-sm ml-1">/ project</span>
-                        </div>
-                        <p class="text-gray-500 text-xs mt-2">Complete web presence and marketing combo</p>
-                    </div>
-                    <div class="p-6 flex-grow space-y-4 text-sm text-gray-600">
-                        <ul class="space-y-3">
-                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Full Web Development / Custom Site</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> 5 Video Reels / Content Edits</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Complete On-Page &amp; Off-Page SEO</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> 5 Business / News Articles</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Social Media Management (1 month)</li>
-                        </ul>
-                    </div>
-                    <div class="p-6 bg-gray-50 border-t border-gray-100">
-                        <button onclick="openOrderModal('Business Preferred Package - $899')" class="w-full bg-brandPink hover:bg-pink-700 text-white font-bold py-2.5 rounded-lg transition shadow ">Order Now</button>
-                    </div>
-                </div>
+<!-- Pricing Grid: All Three Packages -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
 
-                <!-- Package 3: Dedicated Support / Enterprise -->
-                <div class="service-card web content seo bg-white rounded-2xl shadow-xl border-2 border-brandPink overflow-hidden flex flex-col relative transform hover:-translate-y-1 transition">
-                    <div class="p-6 bg-pink-50/50 border-b border-pink-100">
-                        <span class="text-xs font-bold text-brandPink uppercase tracking-wider">Advanced</span>
-                        <h3 class="text-2xl font-bold text-gray-900 mt-1">Dedicated Specialist</h3>
-                        <div class="mt-4 flex items-baseline">
-                            <span class="text-4xl font-extrabold text-brandPink">$1500	</span>
-                            <span class="text-gray-500 text-sm ml-1">/ month</span>
-                        </div>
-                        <p class="text-gray-500 text-xs mt-2">Full-time dedicated virtual support & content strategy</p>
-                    </div>
-                    <div class="p-6 flex-grow space-y-4 text-sm text-gray-600">
-                        <ul class="space-y-3">
-                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> 40 hrs/week Dedicated Support</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Ongoing Web Maintenance</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> 20 Article Writing per month</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Weekly SMM &amp; SEO Reports</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Live Chat &amp; Email Customer Service</li>
-							<li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Basic & Preferred Package Included</li>
-                        </ul>
-                    </div>
-                    <div class="p-6 bg-gray-50 border-t border-gray-100">
-                        <button onclick="openOrderModal('Dedicated Specialist - $1500')" class="w-full bg-brandPink hover:bg-pink-700 text-white font-bold py-2.5 rounded-lg transition shadow ">Hire Monthly</button>
-                    </div>
-                </div>
+    <!-- Package 1: Basic Starter -->
+    <div
+        onclick="selectPricingCard(this)"
+        class="pricing-card service-card web content seo bg-white rounded-2xl shadow-xl border-2 border-brandPink overflow-hidden flex flex-col relative transform transition duration-300 hover:-translate-y-1 cursor-pointer">
+
+        <div class="p-6 bg-pink-50/50 border-b border-pink-100">
+            <span class="text-xs font-bold text-brandPink uppercase tracking-wider">
+                Basic
+            </span>
+
+            <h3 class="text-2xl font-bold text-gray-900 mt-1">
+                Basic Digital Setup
+            </h3>
+
+            <div class="mt-4 flex items-baseline">
+                <span class="text-4xl font-extrabold text-brandPink">$299</span>
+                <span class="text-gray-500 text-sm ml-1">/ project</span>
             </div>
-        </section>
 
-        <!-- ================= TAB 3: SUPPORT ================= -->
+            <p class="text-gray-500 text-xs mt-2">
+                Ideal for personal blogs & small business starters
+            </p>
+        </div>
+
+        <div class="p-6 flex-grow space-y-4 text-sm text-gray-600">
+            <ul class="space-y-3">
+                <li class="flex items-center">
+                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
+                    Custom Website / HTML Layout
+                </li>
+                <li class="flex items-center">
+                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
+                    2 SEO-Optimized Articles (800 words)
+                </li>
+                <li class="flex items-center">
+                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
+                    Mobile Responsive Design
+                </li>
+                <li class="flex items-center">
+                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
+                    Basic Meta Tag Setup
+                </li>
+                <li class="flex items-center text-gray-400 line-through">
+                    <i class="fa-solid fa-xmark text-gray-300 mr-2"></i>
+                    Video Editing
+                </li>
+            </ul>
+        </div>
+
+        <div class="p-6 bg-gray-50 border-t border-gray-100 mt-auto">
+            <button
+                onclick="event.stopPropagation(); openOrderModal('Basic Digital Setup - $299')"
+                class="w-full bg-brandPink hover:bg-pink-700 text-white font-bold py-2.5 rounded-lg transition shadow">
+                Select Package
+            </button>
+        </div>
+    </div>
+
+
+    <!-- Package 2: Business Preferred -->
+    <div
+        onclick="selectPricingCard(this)"
+        class="pricing-card service-card web content seo bg-white rounded-2xl shadow-xl border-2 border-brandPink overflow-hidden flex flex-col relative transform transition duration-300 hover:-translate-y-1 cursor-pointer">
+
+        <div class="p-6 bg-pink-50/50 border-b border-pink-100">
+            <span class="text-xs font-bold text-brandPink uppercase tracking-wider">
+                Preferred
+            </span>
+
+            <h3 class="text-2xl font-bold text-gray-900 mt-2">
+                Business Preferred Package
+            </h3>
+
+            <div class="mt-4 flex items-baseline">
+                <span class="text-4xl font-extrabold text-brandPink">$899</span>
+                <span class="text-gray-500 text-sm ml-1">/ month</span>
+            </div>
+
+            <p class="text-gray-500 text-xs mt-2">
+                Complete web presence and marketing combo
+            </p>
+        </div>
+
+        <div class="p-6 flex-grow space-y-4 text-sm text-gray-600">
+            <ul class="space-y-3">
+                <li class="flex items-center">
+                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
+                    Full Web Development / Custom Site
+                </li>
+                <li class="flex items-center">
+                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
+                    5 Video Reels / Content Edits
+                </li>
+                <li class="flex items-center">
+                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
+                    Complete On-Page & Off-Page SEO
+                </li>
+                <li class="flex items-center">
+                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
+                    5 Business / News Articles
+                </li>
+                <li class="flex items-center text-gray-400 line-through">
+                    <i class="fa-solid fa-xmark text-gray-300 mr-2"></i>
+                    Social Media Management (1 month)
+                </li>
+            </ul>
+        </div>
+
+        <div class="p-6 bg-gray-50 border-t border-gray-100 mt-auto">
+            <button
+                onclick="event.stopPropagation(); openOrderModal('Business Preferred Package - $899')"
+                class="w-full bg-brandPink hover:bg-pink-700 text-white font-bold py-2.5 rounded-lg transition shadow">
+                Order Now
+            </button>
+        </div>
+
+    </div>
+
+
+    <!-- Package 3: Advanced Dedicated Specialist -->
+    <div
+        onclick="selectPricingCard(this)"
+        class="pricing-card service-card web content seo bg-white rounded-2xl shadow-xl border-2 border-brandPink overflow-hidden flex flex-col relative transform transition duration-300 hover:-translate-y-1 cursor-pointer">
+
+        <div class="p-6 bg-pink-50/50 border-b border-pink-100">
+            <span class="text-xs font-bold text-brandPink uppercase tracking-wider">
+                Advanced
+            </span>
+
+            <h3 class="text-2xl font-bold text-gray-900 mt-2">
+                Dedicated Specialist
+            </h3>
+
+            <div class="mt-4 flex items-baseline">
+                <span class="text-4xl font-extrabold text-brandPink">$1500</span>
+                <span class="text-gray-500 text-sm ml-1">/ month</span>
+            </div>
+
+            <p class="text-gray-500 text-xs mt-2">
+                Full-time dedicated virtual support & content strategy
+            </p>
+        </div>
+
+        <div class="p-6 flex-grow space-y-4 text-sm text-gray-600">
+            <ul class="space-y-3">
+                <li class="flex items-center">
+                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
+                    40 hrs/week Dedicated Support
+                </li>
+                <li class="flex items-center">
+                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
+                    Ongoing Web Maintenance
+                </li>
+                <li class="flex items-center">
+                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
+                    Live Chat & Email Customer Service
+                </li>
+                <li class="flex items-center">
+                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
+                    Basic & Preferred Package Included
+                </li>
+            </ul>
+        </div>
+
+        <div class="p-6 bg-gray-50 border-t border-gray-100 mt-auto">
+            <button
+                onclick="event.stopPropagation(); openOrderModal('Advanced Dedicated Specialist - $1500')"
+                class="w-full bg-brandPink hover:bg-pink-700 text-white font-bold py-2.5 rounded-lg transition shadow">
+                Hire Monthly
+            </button>
+        </div>
+
+    </div>
+
+</div>
+</div>
+</section>
+
+      <!-- ================= TAB 3: SUPPORT ================= -->
         <section id="tab-support" class="tab-content space-y-8">
             <div class="text-center max-w-3xl mx-auto">
                 <h2 class="text-3xl font-extrabold text-gray-900">Support Center &amp; Contact</h2>
@@ -365,12 +565,18 @@
                         </div>
                     </div>
 
-                    <div class="pt-4 border-t border-gray-700">
-                        <button onclick="openChatSim()" class="w-full bg-brandBlue hover:bg-blue-600 text-white font-bold py-3 rounded-lg transition flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-comments"></i> Start Live Chat
-                        </button>
-                    </div>
-                </div>
+
+            <div class="pt-4 border-t border-gray-700 mt-6">
+                <button
+                    type="button"
+                    onclick="openTawkChat()"
+                    class="w-full bg-brandBlue hover:bg-blue-600 text-white font-bold py-3 rounded-lg transition flex items-center justify-center gap-2"
+                >
+                    <i class="fa-solid fa-comments"></i>
+                    Chat with us
+                </button>
+            </div>
+        </div>
 
                 <!-- Support Ticket Form -->
                 <div class="lg:col-span-2 bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
@@ -412,7 +618,8 @@
                 </div>
             </div>
         </section>
-
+		  
+			
         <!-- ================= TAB 4: FAQ'S ================= -->
         <section id="tab-faqs" class="tab-content space-y-8">
             <div class="text-center max-w-3xl mx-auto">
@@ -494,7 +701,7 @@
                         I am <strong>Audie Pino</strong>, a multi-disciplinary digital specialist committed to delivering high-caliber web development, content creation, customer support, adhoc task and data entry, and SEO/SMM marketing solutions.
                     </p>
                     <p>
-                        With years of hands-on experience in full-stack web builds, professional video editing, article writing, and front-line customer operations, I bridge technical execution with business strategy to ensure maximum return on investment.
+                        With years of hands-on experience as web designer, professional video editor, article writing, and front-line customer operations—I bridge technical execution with business strategy to ensure maximum return on investment.
                     </p>
                 </div>
             </div>
@@ -599,65 +806,59 @@
             <form onsubmit="handleOrderSubmit(event)" class="space-y-3 text-center">
             <div class="mt-6">
 			
-        <a href="https://www.paypal.com/ncp/payment/X46MAEGJHQC54?locale.x=en-US&country.x=US" 
-         class="block text-center w-full bg-gray-900 hover:bg-gray-800 text-white font-semibold py-3 rounded-xl transition shadow-md">
-        Proceed to Checkout
-        </a>
+<a href="https://www.paypal.com/ncp/payment/X46MAEGJHQC54?locale.x=en-US&country.x=US"
+   class="block text-center w-full bg-gray-900 hover:bg-gray-800 text-white text-xl font-bold py-5 rounded-xl transition shadow-md">
+    Proceed to Checkout
+</a>
+
 </div>
             </form>
         </div>
     </div>
 
-    <!-- MODAL 3: LIVE CHAT SIMULATION -->
-    <div id="chatSim" class="fixed bottom-4 right-4 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl z-50 border border-gray-200 hidden overflow-hidden flex flex-col">
-        <div class="bg-brandDark text-white p-4 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-                <span class="font-bold text-sm">Audie Pino - Live Support</span>
-            </div>
-            <button onclick="closeChatSim()" class="text-gray-300 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div id="chatMessages" class="p-4 h-64 overflow-y-auto space-y-3 text-sm bg-gray-50">
-            <div class="bg-white p-3 rounded-lg border border-gray-200 shadow-sm max-w-[85%] text-gray-800">
-                Hello! Thanks for visiting. How can I assist you with your web or content project today?
-            </div>
-        </div>
-        <form onsubmit="sendChatMessage(event)" class="p-2 border-t border-gray-200 bg-white flex">
-            <input type="text" id="chatInput" placeholder="Type a message..." class="flex-grow px-3 py-1.5 text-sm focus:outline-none" required>
-            <button type="submit" class="bg-brandPink text-white px-4 py-1.5 rounded font-semibold text-sm hover:bg-pink-700">Send</button>
-        </form>
-    </div>
-	
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API = Tawk_API || {};
-Tawk_API.customStyle = {
-  visibility : {
-    desktop : {
-      position : 'bl', // Bottom Left
-      xOffset : 20,
-      yOffset : 20
-    },
-    mobile : {
-      position : 'bl',
-      xOffset : 0,
-      yOffset : 0
-    }
-  }
-};
 
-var Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/6adf0df30132003477dc67db/1k5rkt0en';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
-	
+	<!--Start of Tawk.to Script-->
+	<script type="text/javascript">
+		var Tawk_API = Tawk_API || {};
+		var Tawk_LoadStart = new Date();
+
+		Tawk_API.customStyle = {
+			visibility: {
+				desktop: {
+					position: 'bl',
+					xOffset: 20,
+					yOffset: 20
+				},
+				mobile: {
+					position: 'bl',
+					xOffset: 0,
+					yOffset: 0
+				}
+			}
+		};
+
+		// Function to open Tawk.to chat
+		function openTawkChat() {
+			if (typeof Tawk_API !== 'undefined' && Tawk_API.maximize) {
+				Tawk_API.maximize();
+			}
+		}
+
+		// Load Tawk.to
+		(function() {
+			var s1 = document.createElement("script");
+			var s0 = document.getElementsByTagName("script")[0];
+
+			s1.async = true;
+			s1.src = 'https://embed.tawk.to/6adf0df30132003477dc67db/1k5rkt0en';
+			s1.charset = 'UTF-8';
+			s1.setAttribute('crossorigin', '*');
+
+			s0.parentNode.insertBefore(s1, s0);
+		})();
+	</script>
+	<!--End of Tawk.to Script-->
+		
 	
 
     <!-- JAVASCRIPT LOGIC -->
@@ -827,6 +1028,17 @@ s0.parentNode.insertBefore(s1,s0);
                 messages.scrollTop = messages.scrollHeight;
             }, 1000);
         }
+		
     </script>
-SSSS
+<script>
+    function selectPricingCard(selectedCard) {
+        // Remove the selected state from all pricing cards
+        document.querySelectorAll('.pricing-card').forEach(card => {
+            card.classList.remove('selected');
+        });
+
+        // Highlight the clicked card
+        selectedCard.classList.add('selected');
+    }
+</script>
 </html>
