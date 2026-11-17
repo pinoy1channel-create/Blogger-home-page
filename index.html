@@ -28,6 +28,7 @@
         }
     </script>
     <style>
+
         html { scroll-behavior: smooth; }
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
@@ -275,7 +276,7 @@
 					color: black;
 				}
 				
-				.btn-submit {
+.btn-submit {
   background-color: #ED008C;
   color: #ffffff;
   border: none;
@@ -288,6 +289,71 @@
 .btn-submit:hover {
   background-color: #000000; /* hover background */
   color: #ffffff; /* hover text color */
+}
+.canva-portfolio {
+    width: 100%;
+    padding: 100px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.canva-frame {
+    width: 100%;
+    max-width: 1000px;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border: 5px solid #222;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+.canva-preview {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(135deg, #171717, #383838);
+}
+
+.canva-preview-content h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.canva-preview-content p {
+    font-size: 18px;
+}
+
+.canva-preview-content span {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 14px 30px;
+    background: #e91e63;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+@media(max-width: 768px) {
+    .canva-frame {
+        aspect-ratio: 4 / 5;
+    }
+}
+
+/* HIDE ALL TABS */
+.tab-content {
+    display: none;
+}
+
+/* SHOW ONLY ACTIVE TAB */
+.tab-content.active {
+    display: block;
 }
 
 
@@ -326,7 +392,13 @@
                 <button onclick="switchTab('support')" id="nav-support" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-transparent text-gray-300 hover:text-white">Support</button>
                 <button onclick="switchTab('faqs')" id="nav-faqs" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-transparent text-gray-300 hover:text-white">FAQ's</button>
                 <button onclick="switchTab('about')" id="nav-about" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-transparent text-gray-300 hover:text-white">About</button>
+
+                <button onclick="switchTab('portfolio')" id="nav-portfolio" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-transparent text-gray-300 hover:text-white">Video &amp; Photo Editing Portfolio	</button>
+
             </div>
+	
+
+
 
             <!-- Right Search Bar -->
           
@@ -353,40 +425,31 @@
 </div>
 
     </nav>
+    <br>
 
-    <!-- MAIN BODY CONTAINER -->
-    <main class="flex-grow max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
-
-        <!-- GLOBAL SEARCH RESULT NOTIFICATION -->
-   <div id="searchNotification" class="mb-6 p-4 bg-blue-50 border-l-4 border-brandBlue text-blue-800 rounded shadow-sm flex justify-between items-center">
-    <span id="searchText"></span>
-    <button onclick="clearSearch()" class="text-blue-800 font-bold text-sm underline hover:text-black">Clear Search</button>
-   </div>
-
-
-        <!-- ================= TAB 1: HOME ================= -->
-        <section id="tab-home" class="tab-content active space-y-10">
-            <!-- Hero Banner -->
-            <div class="bg-gradient-to-r from-gray-900 via-brandDark to-gray-900 text-white rounded-2xl p-8 sm:p-12 shadow-xl relative overflow-hidden">
-               
-                    <span class="inline-block px-3 py-1 bg-brandPink text-white text-xs font-bold uppercase rounded-full tracking-wider">All-In-One Freelance Solution</span>
-                    <h2 class="text-3xl sm:text-5xl font-extrabold leading-tight">Empowering Your Business With High-Impact Digital Solutions</h2>
-                    <p class="text-gray-300 text-base sm:text-lg">
-                        From bespoke web development to engaging video edits, SEO strategy, and high-converting copy—get full-spectrum digital assistance from a proven professional.
-                    </p>
-                    <div class="pt-4 flex flex-wrap gap-4">
-                        <button onclick="switchTab('plans')" class="bg-brandPink hover:bg-white text-black font-bold py-3 px-8 rounded-lg shadow-lg hover:shadow-xl transition duration-200">
-                            Explore Services
-                        </button>
-                        <button onclick="switchTab('support')" class="bg-brandPink hover:bg-white text-black border border-white/30 font-semibold py-3 px-8 rounded-lg transition duration-200">
-                            Contact Support
-                        </button>
-                    </div>
-                </div>
-                <div class="absolute right-0 bottom-0 opacity-10 hidden md:block">
-                    <i class="fa-solid fa-laptop-code text-[260px]"></i>
-                </div>
-            </div>
+			<!-- ===== ============ TAB 1: HOME ================= -->
+			<section id="tab-home" class="tab-content active space-y-10">
+				<!-- Hero Banner -->
+				<div class="tab-content active space-y-10 bg-gradient-to-r from-gray-900 via-brandDark to-gray-900 text-white rounded-1xl p-8 sm:p-12 shadow-xl relative overflow-hidden">
+				   
+						<span class="inline-block px-3 py-1 bg-brandPink text-white text-xs font-bold uppercase rounded-full tracking-wider">All-In-One Freelance Solution</span>
+						<h2 class="text-3xl sm:text-5xl font-extrabold leading-tight">Empowering Your Business With High-Impact Digital Solutions</h2>
+						<p class="text-gray-300 text-base sm:text-lg">
+							From bespoke web development to engaging video edits, SEO strategy, and high-converting copy—get full-spectrum digital assistance from a proven professional.
+						</p>
+						<div class="pt-4 flex flex-wrap gap-4">
+							<button onclick="switchTab('plans')" class="bg-brandPink hover:bg-white text-black font-bold py-3 px-8 rounded-lg shadow-lg hover:shadow-xl transition duration-200">
+								Explore Services
+							</button>
+							<button onclick="switchTab('support')" class="bg-brandPink hover:bg-white text-black border border-white/30 font-semibold py-3 px-8 rounded-lg transition duration-200">
+								Contact Support
+							</button>
+						</div>
+					</div>
+					<div class="absolute right-0 bottom-0 opacity-10 hidden md:block">
+						<i class="fa-solid fa-laptop-code text-[260px]"></i>
+					</div>
+				</div>
 
             <!-- Stats Bar -->
      
@@ -499,7 +562,7 @@
 
 
                     <!-- Card 7: Quick Contact Card -->
-                    <div class="bg-gradient-to-br from-brandDark to-black text-white p-6 rounded-xl shadow-sm flex flex-col justify-between">
+                    <div class="bg-gradient-to-br from-brandDark to-black text-white p-6 rounded-xl shadow-sm flex flex-col justify-center">
                         <div>
                             <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center text-2xl mb-4 text-white">
                                 <i class="fa-solid fa-paper-plane"></i>
@@ -1011,6 +1074,9 @@ Whether I&apos;m building your online presence, telling your brand&apos;s story,
 
         </div>
     </div>
+	
+    <br>
+	<br>
 
 
     <!-- ABOUT TAB HERO SECTION - KEEP ONLY HERE -->
@@ -1032,20 +1098,19 @@ Whether I&apos;m building your online presence, telling your brand&apos;s story,
 
     </section>
 
-
     <!-- SKILLS PROGRESS BARS -->
-    <div class="bg-brandPink p-8 rounded-2xl shadow-sm border border-gray-200 space-y-6">
+    <div class="bg-brandDark p-8 rounded-2xl shadow-sm border border-gray-200 space-y-6">
 
-        <h3 class="text-2xl font-bold text-black text-center">
+        <h3 class="text-2xl font-bold text-brandPink text-center">
             Technical Mastery
         </h3>
 
         <div class="space-y-4">
 
             <div>
-                <div class="flex justify-between text-black font-semibold mb-1">
+                <div class="flex justify-between text-brandPink font-semibold mb-1">
                     <span>Web Development (HTML/CSS/JS/React)</span>
-                    <span class="text-black">98%</span>
+                    <span class="text-brandPink">98%</span>
                 </div>
                 <div class="w-full bg-black h-2.5 rounded-full overflow-hidden">
                     <div class="bg-white h-2.5 rounded-full" style="width: 95%"></div>
@@ -1053,9 +1118,9 @@ Whether I&apos;m building your online presence, telling your brand&apos;s story,
             </div>
 
             <div>
-                <div class="flex justify-between text-black font-semibold mb-1">
+                <div class="flex justify-between text-brandPink font-semibold mb-1">
                     <span>SEO &amp; Social Media Marketing</span>
-                    <span class="text-black">95%</span>
+                    <span class="text-brandPink">95%</span>
                 </div>
                 <div class="w-full bg-black h-2.5 rounded-full overflow-hidden">
                     <div class="bg-white h-2.5 rounded-full" style="width: 90%"></div>
@@ -1063,9 +1128,9 @@ Whether I&apos;m building your online presence, telling your brand&apos;s story,
             </div>
 
             <div>
-                <div class="flex justify-between text-black font-semibold mb-1">
+                <div class="flex justify-between text-brandPink font-semibold mb-1">
                     <span>Video &amp; Multimedia Editing</span>
-                    <span class="text-black">95%</span>
+                    <span class="text-brandPink">95%</span>
                 </div>
                 <div class="w-full bg-black h-2.5 rounded-full overflow-hidden">
                     <div class="bg-white h-2.5 rounded-full" style="width: 88%"></div>
@@ -1073,9 +1138,9 @@ Whether I&apos;m building your online presence, telling your brand&apos;s story,
             </div>
 
             <div>
-                <div class="flex justify-between text-black font-semibold mb-1">
+                <div class="flex justify-between text-brandPink font-semibold mb-1">
                     <span>News &amp; Business Article Writing</span>
-                    <span class="text-black">96%</span>
+                    <span class="text-brandPink">96%</span>
                 </div>
                 <div class="w-full bg-black h-2.5 rounded-full overflow-hidden">
                     <div class="bg-white h-2.5 rounded-full" style="width: 92%"></div>
@@ -1083,9 +1148,9 @@ Whether I&apos;m building your online presence, telling your brand&apos;s story,
             </div>
 
             <div>
-                <div class="flex justify-between text-black font-semibold mb-1">
+                <div class="flex justify-between text-brandPink font-semibold mb-1">
                     <span>Phone, Email, Chat, Data Entry &amp; Customer Support</span>
-                    <span class="text-black">98%</span>
+                    <span class="text-brandPink">98%</span>
                 </div>
                 <div class="w-full bg-black h-2.5 rounded-full overflow-hidden">
                     <div class="bg-white h-2.5 rounded-full" style="width: 98%"></div>
@@ -1114,10 +1179,37 @@ Whether I&apos;m building your online presence, telling your brand&apos;s story,
     <!-- Other About content -->
 </div>
 
-  </section>
+
+  
+  <!-- ================= TAB 7: Video & Photo Editing Portfolio ================= -->
+
+<!-- CANVA PORTFOLIO FRAME -->
+<section class="canva-portfolio" id="tab-video-photo-editing-portfolio">
+
+
+    <div class="canva-frame">
+
+        <a href="https://audie-pino.my.canva.site/"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="canva-preview">
+
+            <div class="canva-preview-content">
+                <h2>Audie Pino</h2>
+                <p>Video &amp; Photo Editing Portfolio</p>
+                <span>VIEW PORTFOLIO ?</span>
+            </div>
+
+        </a>
+
+    </div>
+
+</section>
+
 
     </main>
 
+	<br>
     <!-- FOOTER -->
 <footer class="w-full bg-brandPink text-gray-400 py-8 border-t border-gray-800 text-sm mt-auto">
     <div class="w-full max-w-7xl mx-auto px-4 text-center space-y-3">
@@ -1373,6 +1465,7 @@ Whether I&apos;m building your online presence, telling your brand&apos;s story,
             query.includes('payment center') ||
             query.includes('amount') ||
             query.includes('form')
+			
         ) {
             openPayModal();
         } else {
@@ -1518,7 +1611,23 @@ Whether I&apos;m building your online presence, telling your brand&apos;s story,
             submitBtn.textContent = 'Send Ticket';
         }
     });
+
+
+function showTab(tabId) {
+
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
+
+    const selectedTab = document.getElementById(tabId);
+
+    if (selectedTab) {
+        selectedTab.classList.add('active');
+    }
+}
+
 </script>
 
 </body>
 </html>
+
