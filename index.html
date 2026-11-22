@@ -1,1633 +1,1621 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audie Pino - Top-notch Web Developer & Freelance Specialist</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brandPink: '#e00075',
-                        brandDark: '#2b2b2b',
-                        brandBlue: '#007bff',
-                        brandBlueHover: '#0056b3'
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-
-        html { scroll-behavior: smooth; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-        .accordion-item.active .accordion-content {
-            max-height: 500px;
-        }
-        .accordion-item.active .chevron-icon {
-            transform: rotate(180deg);
-        }
-		```css
-/* Pricing card base */
-.pricing-card {
-    position: relative;
-    isolation: isolate;
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease,
-        border-color 0.3s ease;
-}
-
-/* Selected card glow */
-.pricing-card.selected {
-    border-color: #ec008c !important;
-    box-shadow:
-        0 0 8px rgba(236, 0, 140, 0.8),
-        0 0 20px rgba(236, 0, 140, 0.5),
-        0 0 40px rgba(236, 0, 140, 0.25);
-    transform: translateY(-5px) scale(1.02);
-    animation: pricingShine 1.2s ease-in-out;
-}
-
-/* Soft animated shine */
-.pricing-card.selected::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    z-index: 2;
-
-    background: linear-gradient(
-        115deg,
-        transparent 20%,
-        rgba(255, 255, 255, 0.55) 45%,
-        transparent 65%
-    );
-
-    background-size: 250% 100%;
-    animation: shineSweep 0.9s ease-out forwards;
-}
-
-/* Glow animation */
-@keyframes pricingShine {
-    0% {
-        box-shadow: 0 0 0 rgba(236, 0, 140, 0);
-    }
-
-    50% {
-        box-shadow:
-            0 0 18px rgba(236, 0, 140, 0.9),
-            0 0 35px rgba(236, 0, 140, 0.6);
-    }
-
-    100% {
-        box-shadow:
-            0 0 8px rgba(236, 0, 140, 0.8),
-            0 0 20px rgba(236, 0, 140, 0.5),
-            0 0 40px rgba(236, 0, 140, 0.25);
-    }
-}
-
-/* Light sweeps across the card */
-@keyframes shineSweep {
-    from {
-        background-position: 150% 0;
-        opacity: 0;
-    }
-
-    30% {
-        opacity: 1;
-    }
-
-    to {
-        background-position: -150% 0;
-        opacity: 0;
-    }
-}
-
-/* Keyboard accessibility */
-.pricing-card:focus-visible {
-    outline: 3px solid #ec008c;
-    outline-offset: 4px;
-}
-
-/* Respect reduced-motion preferences */
-@media (prefers-reduced-motion: reduce) {
-    .pricing-card,
-    .pricing-card.selected,
-    .pricing-card.selected::after {
-        animation: none;
-        transition: none;
-    }
-}
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f4f7f6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-        .form-container {
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 480px;
-            padding: 24px;
-            box-sizing: border-box;
-        }
-        .form-header {
-            background-color: #0d3c61;
-            color: #ffffff;
-            margin: -24px -24px 24px -24px;
-            padding: 16px 24px;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-        .form-group-row {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-        .form-group {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 16px;
-        }
-        .form-group.full-width {
-            width: 100%;
-        }
-        label {
-            font-size: 0.75rem;
-            font-weight: bold;
-            color: #0d3c61;
-            text-transform: uppercase;
-            margin-bottom: 6px;
-            letter-spacing: 0.5px;
-        }
-        input, select, textarea {
-            border: 1px solid #ced4da;
-            border-radius: 4px;
-            padding: 10px;
-            font-size: 0.9rem;
-            width: 100%;
-            box-sizing: border-box;
-            outline: none;
-        }
-        input:focus, select:focus, textarea:focus {
-            border-color: #e60067;
-        }
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-        .btn-submit {
-            background-color: #e60067;
-            color: #ffffff;
-            border: none;
-            border-radius: 4px;
-            padding: 12px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            width: auto;
-            align-self: flex-start;
-            transition: background-color 0.2s;
-        }
-        .btn-submit:hover {
-            background-color: #c40056;
-        }
-        .status-message {
-            margin-top: 16px;
-            padding: 10px;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            display: none;
-        }
-        .status-success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        .status-error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-	
-	
-				/* ===== HERO SECTION ===== */
-				.hero-section {
-					text-align: center;
-					padding: 60px 20px;
-					/* Matches body dark gray */
-					background-color: white;
-					color: black;
-					border-radius: 10px;
-					border: black;
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<title>Audie Pino - Top-notch Web Developer & Freelance Specialist</title>
+			<!-- Tailwind CSS CDN -->
+			<script src="https://cdn.tailwindcss.com"></script>
+			<!-- Font Awesome Icons -->
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+			<!-- Google Fonts Inter -->
+			<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+			<script>
+				tailwind.config = {
+					theme: {
+						extend: {
+							colors: {
+								brandPink: '#e00075',
+								brandDark: '#2b2b2b',
+								brandBlue: '#007bff',
+								brandBlueHover: '#0056b3'
+							},
+							fontFamily: {
+								sans: ['Inter', 'sans-serif'],
+							}
+						}
+					}
 				}
-				.hero-section h2 {
-					font-size: 32px;
-					margin-bottom: 10px;
+			</script>
+			<style>
+
+				html { scroll-behavior: smooth; }
+				.tab-content { display: none; }
+				.tab-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+				@keyframes fadeIn {
+					from { opacity: 0; transform: translateY(6px); }
+					to { opacity: 1; transform: translateY(0); }
 				}
-				.hero-section p {
-					font-size: 18px;
-					color: black;
-					margin-bottom: 30px;
+				.accordion-content {
+					max-height: 0;
+					overflow: hidden;
+					transition: max-height 0.3s ease-out;
 				}
-				.cta-button {
-					background-color: #D80073;
-					color: white;
-					padding: 15px 40px;
-					font-size: 20px;
+				.accordion-item.active .accordion-content {
+					max-height: 500px;
+				}
+				.accordion-item.active .chevron-icon {
+					transform: rotate(180deg);
+				}
+				```css
+		/* Pricing card base */
+		.pricing-card {
+			position: relative;
+			isolation: isolate;
+			transition:
+				transform 0.3s ease,
+				box-shadow 0.3s ease,
+				border-color 0.3s ease;
+		}
+
+		/* Selected card glow */
+		.pricing-card.selected {
+			border-color: #ec008c !important;
+			box-shadow:
+				0 0 8px rgba(236, 0, 140, 0.8),
+				0 0 20px rgba(236, 0, 140, 0.5),
+				0 0 40px rgba(236, 0, 140, 0.25);
+			transform: translateY(-5px) scale(1.02);
+			animation: pricingShine 1.2s ease-in-out;
+		}
+
+		/* Soft animated shine */
+		.pricing-card.selected::after {
+			content: "";
+			position: absolute;
+			inset: 0;
+			border-radius: inherit;
+			pointer-events: none;
+			z-index: 2;
+
+			background: linear-gradient(
+				115deg,
+				transparent 20%,
+				rgba(255, 255, 255, 0.55) 45%,
+				transparent 65%
+			);
+
+			background-size: 250% 100%;
+			animation: shineSweep 0.9s ease-out forwards;
+		}
+
+		/* Glow animation */
+		@keyframes pricingShine {
+			0% {
+				box-shadow: 0 0 0 rgba(236, 0, 140, 0);
+			}
+
+			50% {
+				box-shadow:
+					0 0 18px rgba(236, 0, 140, 0.9),
+					0 0 35px rgba(236, 0, 140, 0.6);
+			}
+
+			100% {
+				box-shadow:
+					0 0 8px rgba(236, 0, 140, 0.8),
+					0 0 20px rgba(236, 0, 140, 0.5),
+					0 0 40px rgba(236, 0, 140, 0.25);
+			}
+		}
+
+		/* Light sweeps across the card */
+		@keyframes shineSweep {
+			from {
+				background-position: 150% 0;
+				opacity: 0;
+			}
+
+			30% {
+				opacity: 1;
+			}
+
+			to {
+				background-position: -150% 0;
+				opacity: 0;
+			}
+		}
+
+		/* Keyboard accessibility */
+		.pricing-card:focus-visible {
+			outline: 3px solid #ec008c;
+			outline-offset: 4px;
+		}
+
+		/* Respect reduced-motion preferences */
+		@media (prefers-reduced-motion: reduce) {
+			.pricing-card,
+			.pricing-card.selected,
+			.pricing-card.selected::after {
+				animation: none;
+				transition: none;
+			}
+		}
+				body {
+					font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+					background-color: #f4f7f6;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					min-height: 100vh;
+					margin: 0;
+				}
+				.form-container {
+					background-color: #ffffff;
+					border-radius: 8px;
+					box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+					width: 100%;
+					max-width: 480px;
+					padding: 24px;
+					box-sizing: border-box;
+				}
+				.form-header {
+					background-color: #0d3c61;
+					color: #ffffff;
+					margin: -24px -24px 24px -24px;
+					padding: 16px 24px;
+					border-top-left-radius: 8px;
+					border-top-right-radius: 8px;
 					font-weight: bold;
-					border-radius: 5px;
+					font-size: 1.1rem;
+				}
+				.form-group-row {
+					display: flex;
+					gap: 16px;
+					margin-bottom: 16px;
+				}
+				.form-group {
+					flex: 1;
+					display: flex;
+					flex-direction: column;
+					margin-bottom: 16px;
+				}
+				.form-group.full-width {
+					width: 100%;
+				}
+				label {
+					font-size: 0.75rem;
+					font-weight: bold;
+					color: #0d3c61;
+					text-transform: uppercase;
+					margin-bottom: 6px;
+					letter-spacing: 0.5px;
+				}
+				input, select, textarea {
+					border: 1px solid #ced4da;
+					border-radius: 4px;
+					padding: 10px;
+					font-size: 0.9rem;
+					width: 100%;
+					box-sizing: border-box;
+					outline: none;
+				}
+				input:focus, select:focus, textarea:focus {
+					border-color: #e60067;
+				}
+				textarea {
+					resize: vertical;
+					min-height: 100px;
+				}
+				.btn-submit {
+					background-color: #e60067;
+					color: #ffffff;
+					border: none;
+					border-radius: 4px;
+					padding: 12px;
+					font-size: 1rem;
+					font-weight: bold;
+					cursor: pointer;
+					width: auto;
+					align-self: flex-start;
+					transition: background-color 0.2s;
+				}
+				.btn-submit:hover {
+					background-color: #c40056;
+				}
+				.status-message {
+					margin-top: 16px;
+					padding: 10px;
+					border-radius: 4px;
+					font-size: 0.9rem;
+					display: none;
+				}
+				.status-success {
+					background-color: #d4edda;
+					color: #155724;
+					border: 1px solid #c3e6cb;
+				}
+				.status-error {
+					background-color: #f8d7da;
+					color: #721c24;
+					border: 1px solid #f5c6cb;
+				}
+			
+			
+						/* ===== HERO SECTION ===== */
+						.hero-section {
+							text-align: center;
+							padding: 60px 20px;
+							/* Matches body dark gray */
+							background-color: white;
+							color: black;
+							border-radius: 10px;
+							border: black;
+						}
+						.hero-section h2 {
+							font-size: 32px;
+							margin-bottom: 10px;
+						}
+						.hero-section p {
+							font-size: 18px;
+							color: black;
+							margin-bottom: 30px;
+						}
+						.cta-button {
+							background-color: #D80073;
+							color: white;
+							padding: 15px 40px;
+							font-size: 20px;
+							font-weight: bold;
+							border-radius: 5px;
+							
+						}
+						.cta-button:hover {
+							background-color: white;
+							transform: translateY(-2px);
+							color: black;
+						}
+						
+		.btn-submit {
+		  background-color: #ED008C;
+		  color: #ffffff;
+		  border: none;
+		  padding: 10px 24px;
+		  font-size: 16px;
+		  cursor: pointer;
+		  transition: all 0.3s ease; /* smooth color change */
+		}
+
+		.btn-submit:hover {
+		  background-color: #000000; /* hover background */
+		  color: #ffffff; /* hover text color */
+		}
+		
+		/* HIDE ALL TABS */
+		.tab-content {
+			display: none;
+		}
+
+		/* SHOW ONLY ACTIVE TAB */
+		.tab-content.active {
+			display: block;
+		}
+
+
+			</style>
+		</head>
+		<body class="bg-gray-100 text-gray-800 font-sans antialiased min-h-screen flex flex-col">
+
+			<!-- MAIN HEADER SECTION (Matching exact visual request) -->
+			<header class="w-full bg-brandPink text-white py-6 px-4 text-center shadow-md">
+				<div class="max-w-6xl mx-auto">
+					<h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-2">Audie Pino</h1>
+					<p class="text-xs sm:text-sm md:text-base font-normal max-w-4xl mx-auto leading-relaxed opacity-95">
+						Your Trusted Top-notch Web Developer, video/Content Editor, SEO &amp; SMM Specialist, News and Business Article Maker, and Experienced Customer Support.
+					</p>
+				</div>
+			</header>
+
+			<!-- NAVIGATION BAR -->
+			<nav class="w-full bg-brandDark text-white sticky top-0 z-50 shadow-lg">
+				<div class="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row items-center justify-between">
+					<!-- Mobile Menu Toggle Button -->
+					<div class="w-full lg:w-auto flex justify-between items-center py-3 lg:py-0 border-b lg:border-b-0 border-gray-700">
+						<span class="text-sm font-semibold uppercase tracking-wider lg:hidden">Menu</span>
+						<button id="mobileMenuBtn" class="lg:hidden text-white focus:outline-none p-2 rounded hover:bg-gray-800">
+							<i class="fa-solid fa-bars text-xl"></i>
+						</button>
+					</div>
+
+					<!-- Navigation Links -->
+					<div id="navLinks" class="hidden lg:flex flex-col lg:flex-row w-full lg:w-auto items-center py-2 lg:py-0 space-y-2 lg:space-y-0 text-sm font-medium">
+						
+						<button onclick="switchTab('home')" id="nav-home" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-brandPink font-bold text-white">Home</button>
+						<button onclick="switchTab('plans')" id="nav-plans" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-transparent text-gray-300 hover:text-white">Plans &amp; Services</button>
+					 
+						<button onclick="switchTab('pay')" id="nav-pay" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-transparent text-gray-300 hover:text-white">Pay</button>
+
+						<button onclick="switchTab('support')" id="nav-support" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-transparent text-gray-300 hover:text-white">Support</button>
+						<button onclick="switchTab('faqs')" id="nav-faqs" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-transparent text-gray-300 hover:text-white">FAQ's</button>
+						<button onclick="switchTab('about')" id="nav-about" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-transparent text-gray-300 hover:text-white">About</button>
+						<button onclick="switchTab('portfolio')" id="nav-portfolio" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-transparent text-gray-300 hover:text-white">My Portfolio</button>
 					
-				}
-				.cta-button:hover {
-					background-color: white;
-					transform: translateY(-2px);
-					color: black;
-				}
-				
-.btn-submit {
-  background-color: #ED008C;
-  color: #ffffff;
-  border: none;
-  padding: 10px 24px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s ease; /* smooth color change */
-}
-
-.btn-submit:hover {
-  background-color: #000000; /* hover background */
-  color: #ffffff; /* hover text color */
-}
-.canva-portfolio {
-    width: 100%;
-    padding: 100px 50px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-.canva-frame {
-    width: 100%;
-    max-width: 1000px;
-    aspect-ratio: 16 / 9;
-    background: #000;
-    border: 5px solid #222;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-}
-
-.canva-preview {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    text-decoration: none;
-    color: white;
-    background: linear-gradient(135deg, #171717, #383838);
-}
-
-.canva-preview-content h2 {
-    font-size: 36px;
-    margin-bottom: 10px;
-}
-
-.canva-preview-content p {
-    font-size: 18px;
-}
-
-.canva-preview-content span {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 14px 30px;
-    background: #e91e63;
-    color: white;
-    border-radius: 8px;
-    font-weight: bold;
-}
-
-@media(max-width: 768px) {
-    .canva-frame {
-        aspect-ratio: 4 / 5;
-    }
-}
-
-/* HIDE ALL TABS */
-.tab-content {
-    display: none;
-}
-
-/* SHOW ONLY ACTIVE TAB */
-.tab-content.active {
-    display: block;
-}
+					</div>
+			
 
 
-    </style>
-</head>
-<body class="bg-gray-100 text-gray-800 font-sans antialiased min-h-screen flex flex-col">
 
-    <!-- MAIN HEADER SECTION (Matching exact visual request) -->
-    <header class="w-full bg-brandPink text-white py-6 px-4 text-center shadow-md">
-        <div class="max-w-6xl mx-auto">
-            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-2">Audie Pino</h1>
-            <p class="text-xs sm:text-sm md:text-base font-normal max-w-4xl mx-auto leading-relaxed opacity-95">
-                Your Trusted Top-notch Web Developer, video/Content Editor, SEO &amp; SMM Specialist, News and Business Article Maker, and Experienced Customer Support.
-            </p>
+					<!-- Right Search Bar -->
+				  
+		<div class="w-full lg:w-auto py-3 lg:py-2">
+			<form onsubmit="handleSearch(event)"
+				class="flex items-center w-full lg:w-80 focus-within:lg:w-[450px] transition-all duration-300 ease-in-out">
+
+				<input
+					type="text"
+					id="searchInput"
+					placeholder="Search..."
+					class="w-full px-4 py-2.5 text-gray-800 bg-white rounded-l focus:outline-none text-base border border-gray-300 focus:border-pink-500 transition-all duration-300"
+				>
+
+				<button
+					type="submit"
+					class="bg-brandPink hover:bg-brandPinkHover text-white px-6 py-2.5 rounded-r font-semibold text-base transition-colors flex items-right gap-1 shrink-0"
+				>
+					Search
+				</button>
+
+			</form>
+		</div>
+		</div>
+
+			</nav>
+			<br>
+
+					<!-- ===== ============ TAB 1: HOME ================= -->
+					<section id="tab-home" class="tab-content active space-y-10">
+						<!-- Hero Banner -->
+						<div class="tab-content active space-y-10 bg-gradient-to-r from-gray-900 text-white via-brandDark to-brandPink rounded-2xl p-8 sm:p-12 shadow-xl relative overflow-hidden flex flex-col items-center justify-center text-center ml-1">
+						   
+								<span class="inline-block px-12 py-5 bg-brandPink text-white text-xs font-bold uppercase rounded-full tracking-wider">All-In-One Freelance Solution</span>
+								<h2 class="text-5xl font-extrabold leading-tight">Empowering Your Business With High-Impact Digital Solutions</h2>
+								<p class="text-gray-300 text-base sm:text-lg">
+									From bespoke web development to engaging video edits, SEO strategy, and high-converting copy&dash;get full-spectrum digital assistance from a proven professional.
+								</p>
+								<div class="pt-4 flex flex-row gap-4 flex-wrap items-center justify-center text-center">
+									<button onclick="switchTab('plans')" class="bg-brandPink text-white hover:bg-white hover:text-black font-bold py-5 px-12 rounded-lg transition duration-200 flex flex-col items-center-left justify-center-left text-center-left">
+										Explore Services
+									</button>
+									<button onclick="switchTab('support')" class="bg-brandPink text-white hover:bg-white hover:text-black font-bold py-5 px-12 rounded-lg transition duration-200 flex flex-col items-center-right justify-center-right text-center-right">
+										Contact Support
+									</button>
+								</div>
+							</div>
+						</div>
+
+					<!-- Stats Bar -->
+			 
+		<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+			<div class="bg-brandPink p-10 w-full min-h-[250px] rounded-xl shadow-sm text-center border-b-4 border-brandPink ml-1">
+				<div class="text-3xl sm:text-4xl font-extrabold text-white">10+</div>
+				<div class="text-xs sm:text-sm text-white uppercase font-semibold mt-1">Years Experience as Customer Support (in BPO)</div>
+			</div>
+
+			<div class="bg-brandPink p-6 rounded-xl shadow-sm text-center border-b-4 border-brandPink">
+				<div class="text-3xl sm:text-4xl font-extrabold text-white">100+</div>
+				<div class="text-xs sm:text-sm text-white uppercase font-semibold mt-1">Projects Delivered as Video Editor/SEO/SMM</div>
+			</div>
+
+			<div class="bg-brandPink p-6 rounded-xl shadow-sm text-center border-b-4 border-brandPink">
+				<div class="text-3xl sm:text-4xl font-extrabold text-white">10+</div>
+				<div class="text-xs sm:text-sm text-white uppercase font-semibold mt-1">Years Experience as omni-channel support (in BPO) Phone, email, chat, data entry</div>
+			</div>
+
+			<div class="bg-brandPink p-6 rounded-xl shadow-sm text-center border-b-4 border-brandPink">
+				<div class="text-3xl sm:text-4xl font-extrabold text-white">99%</div>
+				<div class="text-xs sm:text-sm text-white uppercase font-semibold mt-1">Client Satisfaction</div>
+			</div>
+
+		</div> <br>
+		       <br>
+
+
+					<!-- Core Services Grid -->
+					<div>
+						<div class="text-center mb-10">
+							<span class="inline-block px-40 py-10 bg-brandPink text-white text-3xl sm:text-5xl font-extrabold leading-tight uppercase rounded-full tracking-wider">Core Expertise</span>
+					<p>Select comprehensive skills tailored to elevate your online presence and check out your preferred package by clicking 
+                        <button onclick="switchTab('plans')" class="mt-6 text-brandPink font-bold text-4x1 hover:underline">View Plans &rarr;</button> here or below.
+                    </p>
+
+
+						</div>
+						<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+						
+						
+<!-- Card 1 -->
+<div class="bg-white p-30 w-auto min-h-[750px] rounded-xl shadow-sm hover:shadow-md transition border border-brandPink flex flex-col items-center text-center pt-10 ml-6">
+    <!-- Full-width container to ensure everything centers properly -->
+    <div class="w-full flex flex-col items-center">
+        <div class="w-12 h-12 bg-pink text-brandPink rounded-lg flex items-center justify-center text-2xl mb-4">
+            <i class="fa-solid fa-code"></i>
         </div>
-    </header>
 
-    <!-- NAVIGATION BAR -->
-    <nav class="w-full bg-brandDark text-white sticky top-0 z-50 shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row items-center justify-between">
-            <!-- Mobile Menu Toggle Button -->
-            <div class="w-full lg:w-auto flex justify-between items-center py-3 lg:py-0 border-b lg:border-b-0 border-gray-700">
-                <span class="text-sm font-semibold uppercase tracking-wider lg:hidden">Menu</span>
-                <button id="mobileMenuBtn" class="lg:hidden text-white focus:outline-none p-2 rounded hover:bg-gray-800">
-                    <i class="fa-solid fa-bars text-xl"></i>
-                </button>
-            </div>
+        <h4 class="text-5xl font-bold mb-2">Web Development</h4>
+        
+        <button onclick="switchTab('plans')" class="mt-6 text-brandPink font-bold text-9x1 hover:underline">View Plans &rarr;</button>
+        
+        <!-- ? Fixed: Bullets visible + proper indentation + full width -->
+		 <ul class="mt-12 text-left text-gray text-8x1 leading-relaxed list-disc pl-6 pr-3 w-full space-y-2 ml-0 mr-0">
+             <li><b>Expert development across major platforms including Shopify, Amazon, WordPress, WooCommerce, Squarespace, Wix</b>, and custom <b>HTML/CSS </b> builds. From fully functional online stores to brand-focused websites &mdash; delivers responsive, secure, and SEO-friendly digital presences tailored to each platform&apos;s standards. Ensures seamless user experience, mobile compatibility, and consistent performance, whether launching a new storefront, migrating an existing site, or enhancing your current platform.</li>
+        </ul>
+		
+        <ul class="mt-12 text-left text-gray-700 text-8x1 leading-relaxed list-disc pl-6 pr-3 w-full space-y-2 ml-0 mr-0">
+             <li><b>Design, build, and maintain responsive, high-performance websites and web applications.</b> Proficient in front-end technologies including HTML5, Advanced CSS, JavaScript, and modern frameworks. Delivers accessible, SEO-friendly, and cross-browser compatible digital solutions that align with business goals, enhance user experience, and drive online growth.</li>
+        </ul>
+		
+    </div>
+</div>
 
-            <!-- Navigation Links -->
-            <div id="navLinks" class="hidden lg:flex flex-col lg:flex-row w-full lg:w-auto items-center py-2 lg:py-0 space-y-2 lg:space-y-0 text-sm font-medium">
-                <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-brandPink font-bold text-white">Home</button>
-                <button onclick="switchTab('plans')" id="nav-plans" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-transparent text-gray-300 hover:text-white">Plans &amp; Services</button>
-             
-                <button onclick="switchTab('pay')" id="nav-pay" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-transparent text-gray-300 hover:text-white">Pay</button>
+							<!-- Card 2 -->
+                    <div class="bg-white p-30 w-auto min-h-[750px] rounded-xl shadow-sm hover:shadow-md transition border border-brandPink flex flex-col items-center text-center pt-10">
+	                        <!-- Full-width container to ensure everything centers properly -->
+	                       <div class="w-full flex flex-col items-center">
+		                   <div class="w-12 h-12 bg-pink text-brandPink rounded-lg flex items-center justify-center text-2xl mb-4">
+			               <i class="fa-solid fa-video"></i>
+		            </div>
 
-                <button onclick="switchTab('support')" id="nav-support" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-transparent text-gray-300 hover:text-white">Support</button>
-                <button onclick="switchTab('faqs')" id="nav-faqs" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-transparent text-gray-300 hover:text-white">FAQ's</button>
-                <button onclick="switchTab('about')" id="nav-about" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-transparent text-gray-300 hover:text-white">About</button>
+		                   <h4 class="text-5xl font-bold mb-2">Video & Content Editing</h4>
+	                </div>
+	                       <button onclick="switchTab('plans')" class="mt-6 text-brandPink font-bold text-4x1 hover:underline">View Plans &rarr;</button>
+						   
+				    <ul class="mt-12 text-left text-gray-700 text-8x1 leading-relaxed list-disc pl-6 pr-3 w-full space-y-2 ml-0 mr-0">
+                               <li><b>Expert editing with Adobe Premiere Pro for advanced workflows, DaVinci Resolve for professional colour grading and high-end finishing, and CapCut for fast, high-impact social media content.</b> Skilled across cinematic productions, documentaries, animated explainers, tutorials, talking-head videos, B-roll sequences, motion graphics, 2D/3D animation, podcast episodes, and gaming highlights. Every project is crafted with attention to detail, visual consistency, and platform-ready quality. Versatile editing solutions built for your audience &mdash; delivering professional content for Facebook, TikTok, YouTube, Instagram, and other social and web platforms.</>
+                    </div>
 
-                <button onclick="switchTab('portfolio')" id="nav-portfolio" class="nav-btn px-4 py-3 hover:bg-gray-800 transition-colors w-full lg:w-auto text-center border-b-2 border-transparent text-gray-300 hover:text-white">Video &amp; Photo Editing Portfolio	</button>
 
-            </div>
+								<!-- Card 3 -->
+                    <div class="bg-white p-30 w-auto min-h-[750px] rounded-xl shadow-sm hover:shadow-md transition border border-brandPink flex flex-col items-center text-center pt-10">
+	                        <!-- Full-width container to ensure everything centers properly -->
+	                       <div class="w-full flex flex-col items-center">
+		                   <div class="w-12 h-12 bg-pink text-brandPink rounded-lg flex items-center justify-center text-2xl mb-4">
+			               <i class="fa-solid fa-chart-line"></i>
+		            </div>
+
+		                   <h4 class="text-5xl font-bold mb-2">SEO & SMM Specialist</h4>
+	                </div>
+	                       <button onclick="switchTab('plans')" class="mt-6 text-brandPink font-bold text-4x1 hover:underline">View Plans &rarr;</button>
+						   
+						   <ul class="mt-12 text-left text-gray-700 text-8x1 leading-relaxed list-disc pl-6 pr-3 w-full space-y-2 ml-0 mr-0">
+                           <li>Implement end-to-end search engine optimisation and social media strategies that strengthen your digital presence. <b> SEO services:</b> keyword analysis, on-page and off-page SEO, technical SEO audits, site structure improvement, speed optimisation, and backlink strategy. <b> SMM services:</b> social media calendar planning, content strategy development, audience research, community management, platform analytics, and social ad management &mdash; ensuring your brand performs well both in search results and on social platforms.</li>
+                    </div>
+
+
+							<!-- Card 4 -->
+                    <div class="bg-white p-30 w-auto min-h-[750px] rounded-xl shadow-sm hover:shadow-md transition border border-brandPink flex flex-col items-center text-center pt-10 ml-6">
+	                        <!-- Full-width container to ensure everything centers properly -->
+	                       <div class="w-full flex flex-col items-center">
+		                   <div class="w-12 h-12 bg-pink text-brandPink rounded-lg flex items-center justify-center text-2xl mb-4">
+			               <i class="fa-solid fa-pen-to-square"></i>
+		            </div>
+
+		                   <h4 class="text-5xl font-bold mb-2">Personal & Business Articles</h4>
+	                </div>
+	                       <button onclick="switchTab('plans')" class="mt-6 text-brandPink font-bold text-4x1 hover:underline">View Plans &rarr;</button>
+						   
+						   <ul class="mt-12 text-left text-gray text-8x1 leading-relaxed list-disc pl-6 pr-3 w-full space-y-2 ml-0 mr-0">
+                               <li>Professional writing services covering personal lifestyle pieces, reflective narratives, professional business content including industry guides, company blogs, thought leadership articles, case studies, educational posts that include Research, write, and polish clear engaging content tailored for personal blogs, business websites, industry publications, newsletters, and professional platforms. Each article is crafted with appropriate tone, depth, and structure &mdash; from personal storytelling that connects with readers to business-focused content that informs clients, builds authority, and strengthens professional credibility.</li>
+                          </ul>
+                    </div>
+
+
+
+							<!-- Card 5 -->
+                    <div class="bg-white p-30 w-auto min-h-[750px] rounded-xl shadow-sm hover:shadow-md transition border border-brandPink flex flex-col items-center text-center pt-10">
+	                        <!-- Full-width container to ensure everything centers properly -->
+	                       <div class="w-full flex flex-col items-center">
+		                   <div class="w-12 h-12 bg-pink text-brandPink rounded-lg flex items-center justify-center text-2xl mb-4">
+			               <i class="fa-solid fa-phone-volume"></i>
+		            </div>
+
+		                   <h4 class="text-5xl font-bold mb-2">Inbound/Outbound Customer Support </h4>
+	                </div>
+	                       <button onclick="switchTab('plans')" class="mt-6 text-brandPink font-bold text-4x1 hover:underline">View Plans &rarr;</button>
+						   
+						   <ul class="mt-12 text-left text-gray text-8x1 leading-relaxed list-disc pl-6 pr-3 w-full space-y-2 ml-0 mr-0">
+                               <li>Professional customer service that reflects your brand values. Inbound assistance ensures every customer concern is addressed clearly and promptly, and deliver multiple services like answering basic to complex questions, KPI champion for customer (CSAT), average handling time (AHT), First-call resolution (FCR), processing sales and orders, resolving complaints and escalations, updating records, billing and disputes, and guiding customers through processes. Outbound communications keep customers informed about the services offered (soft or hard-core outbound selling), verbatim script, and valued &mdash; from service reminders to satisfaction surveys &mdash; perfect for insurance, healthcare, real estate, Telco, gift cards, etc . Trained to represent your business courteously, handle conversations with empathy, and escalate complex issues appropriately &mdash; creating positive experiences that strengthen your brand reputation.</li>
+                          </ul>
+                    </div>
+
+
+												<!-- Card 6 -->
+                    <div class="bg-white p-30 w-auto min-h-[750px] rounded-xl shadow-sm hover:shadow-md transition border border-brandPink flex flex-col items-center text-center pt-10">
+	                        <!-- Full-width container to ensure everything centers properly -->
+	                       <div class="w-full flex flex-col items-center">
+		                   <div class="w-12 h-12 bg-pink text-brandPink rounded-lg flex items-center justify-center text-2xl mb-4">
+			               <i class="fa-solid fa-table-cells"></i>
+		            </div>
+
+		                   <h4 class="text-5xl font-bold mb-2">Data Entry &amp; General Virtual Assistant</h4>
+	                </div>
+	                       <button onclick="switchTab('plans')" class="mt-6 text-brandPink font-bold text-4x1 hover:underline">View Plans &rarr;</button>
+						   
+						    <ul class="mt-12 text-left text-gray text-8x1 leading-relaxed list-disc pl-6 pr-3 w-full space-y-2 ml-0 mr-0">
+                               <li>Efficient remote support covering end-to-end data management and administrative operations. <b> Data entry:</b> manual and bulk data input, copy-paste tasks, PDF to editable format conversion, data validation, inventory or customer record updates, maintaining organised records, cleaning datasets, managing digital files with high accuracy, and sales and revenue updates. <b> Virtual assistance:</b> file management, meeting coordination, travel booking, expense tracking, online research, and document editing. Proficient with spreadsheets, office applications, cloud storage, and web-based tools &mdash; delivering consistent results with attention to detail and data integrity.</li>
+                          </ul>
+                    </div>
+
+
 	
 
-
-
-            <!-- Right Search Bar -->
-          
-<div class="w-full lg:w-auto py-3 lg:py-2">
-    <form onsubmit="handleSearch(event)"
-        class="flex items-center w-full lg:w-80 focus-within:lg:w-[450px] transition-all duration-300 ease-in-out">
-
-        <input
-            type="text"
-            id="searchInput"
-            placeholder="Search..."
-            class="w-full px-4 py-2.5 text-gray-800 bg-white rounded-l focus:outline-none text-base border border-gray-300 focus:border-pink-500 transition-all duration-300"
-        >
-
-        <button
-            type="submit"
-            class="bg-brandPink hover:bg-brandPinkHover text-white px-6 py-2.5 rounded-r font-semibold text-base transition-colors flex items-right gap-1 shrink-0"
-        >
-            Search
-        </button>
-
-    </form>
-</div>
+							<!-- Card 7: Quick Contact Card -->		
+<div class="bg-brandDark bg:text-white hover:bg- black hover:text-white p-30 w-full min-h-[750px] rounded-xl shadow-sm hover:shadow-md transition border border-brandPink flex flex-col items-center justify-center mt-10 mr-6 ml-6 pt-10 pb-10 mx-[1px] col-span-full"> 
+  <div class="text-center">
+    <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center text-2xl mb-4 text-white mx-auto">
+        <i class="fa-solid fa-paper-plane"></i>
+    </div>
+    <h4 class="text-3xl text-white text-5xl font-extrabold leading-tight">Need a Custom Quote?</h4> 
+    <p class="text-gray-300 text-3x1 leading-relaxed max-w-2xl mx-auto">Have a unique project scope? Send a direct request and receive a custom offer tailored to your budget.</p>
+  </div>
+  <button onclick="switchTab('support')" class="text-5xl font-extrabold leading-tight mt-6 bg-brandPink text-white py-10 px-40 rounded-lg font-bold hover:bg-white hover:text-black transition text-center">Get Custom Proposal</button>
 </div>
 
-    </nav>
-    <br>
 
-			<!-- ===== ============ TAB 1: HOME ================= -->
-			<section id="tab-home" class="tab-content active space-y-10">
-				<!-- Hero Banner -->
-				<div class="tab-content active space-y-10 bg-gradient-to-r from-gray-900 via-brandDark to-gray-900 text-white rounded-1xl p-8 sm:p-12 shadow-xl relative overflow-hidden">
-				   
-						<span class="inline-block px-3 py-1 bg-brandPink text-white text-xs font-bold uppercase rounded-full tracking-wider">All-In-One Freelance Solution</span>
-						<h2 class="text-3xl sm:text-5xl font-extrabold leading-tight">Empowering Your Business With High-Impact Digital Solutions</h2>
-						<p class="text-gray-300 text-base sm:text-lg">
-							From bespoke web development to engaging video edits, SEO strategy, and high-converting copy—get full-spectrum digital assistance from a proven professional.
-						</p>
-						<div class="pt-4 flex flex-wrap gap-4">
-							<button onclick="switchTab('plans')" class="bg-brandPink hover:bg-white text-black font-bold py-3 px-8 rounded-lg shadow-lg hover:shadow-xl transition duration-200">
-								Explore Services
-							</button>
-							<button onclick="switchTab('support')" class="bg-brandPink hover:bg-white text-black border border-white/30 font-semibold py-3 px-8 rounded-lg transition duration-200">
-								Contact Support
-							</button>
-						</div>
+				  </div>
+			  </div>
+				</section>
+
+				<!-- ================= TAB 2: PLANS & SERVICES ================= -->
+				<section id="tab-plans" class="tab-content space-y-8">
+					<div class="text-center max-w-3xl mx-auto">
+						<h2 class="text-3xl font-extrabold text-gray-900">Service Packages & Pricing</h2>
+						<p class="text-gray-600 mt-2">Transparent pricing designed to fit startups, business owners, and digital creators.</p>
 					</div>
-					<div class="absolute right-0 bottom-0 opacity-10 hidden md:block">
-						<i class="fa-solid fa-laptop-code text-[260px]"></i>
+
+					<!-- Service Filter Tabs -->
+					<div class="flex flex-wrap justify-center gap-2 border-b border-gray-200 pb-4">
+						<button onclick="filterServices('all')" class="service-filter-btn active bg-brandPink text-white px-4 py-2 rounded-full text-sm font-bold" style="padding: 20px 100px;">All Packages</strong></button>
 					</div>
+					
+					
+
+
+		<!-- Pricing Grid: All Three Packages -->
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+
+			<!-- Package 1: Basic Starter -->
+			<div
+				onclick="selectPricingCard(this)"
+				class="pricing-card service-card web content seo bg-white rounded-2xl shadow-xl border-2 border-brandPink overflow-hidden flex flex-col relative transform transition duration-300 hover:-translate-y-1 cursor-pointer">
+
+				<div class="p-6 bg-pink-50/50 border-b border-pink-100">
+					<span class="text-xs font-bold text-brandPink uppercase tracking-wider">
+						Basic
+					</span>
+
+					<h3 class="text-2xl font-bold text-gray-900 mt-1">
+						Basic Digital Setup
+					</h3>
+
+					<div class="mt-4 flex items-baseline">
+						<span class="text-4xl font-extrabold text-brandPink">$299</span>
+						<span class="text-gray-500 text-sm ml-1">/ project</span>
+					</div>
+
+					<p class="text-gray-500 text-xs mt-2">
+						Ideal for personal blogs & small business starters
+					</p>
 				</div>
 
-            <!-- Stats Bar -->
-     
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-
-    <div class="bg-brandPink p-6 rounded-xl shadow-sm text-center border-b-4 border-brandPink">
-        <div class="text-3xl sm:text-4xl font-extrabold text-brandWhite">8+</div>
-        <div class="text-xs sm:text-sm text-brandWhite uppercase font-semibold mt-1">Years Experience</div>
-    </div>
-
-    <div class="bg-brandPink p-6 rounded-xl shadow-sm text-center border-b-4 border-brandPink">
-        <div class="text-3xl sm:text-4xl font-extrabold text-brandWhite">100+</div>
-        <div class="text-xs sm:text-sm text-brandWhite uppercase font-semibold mt-1">Projects Delivered</div>
-    </div>
-
-    <div class="bg-brandPink p-6 rounded-xl shadow-sm text-center border-b-4 border-brandPink">
-        <div class="text-3xl sm:text-4xl font-extrabold text-brandWhite">99%</div>
-        <div class="text-xs sm:text-sm text-brandWhite uppercase font-semibold mt-1">Client Satisfaction</div>
-    </div>
-
-    <div class="bg-brandPink p-6 rounded-xl shadow-sm text-center border-b-4 border-brandPink">
-        <div class="text-3xl sm:text-4xl font-extrabold text-brandWhite">24/7</div>
-        <div class="text-xs sm:text-sm text-brandWhite uppercase font-semibold mt-1">Customer Support</div>
-    </div>
-
-</div>
-
-
-            <!-- Core Services Grid -->
-            <div>
-                <div class="text-center mb-8">
-                    <h3 class="text-2xl sm:text-3xl font-bold text-gray-900">Core Expertise</h3>
-                    <p class="text-gray-600 mt-2">Comprehensive skills tailored to elevate your online presence</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Card 1 -->
-                    <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border border-gray-100 flex flex-col justify-between">
-                        <div>
-                            <div class="w-12 h-12 bg-pink-100 text-brandPink rounded-lg flex items-center justify-center text-2xl mb-4">
-                                <i class="fa-solid fa-code"></i>
-                            </div>
-                            <h4 class="text-xl font-bold mb-2">Web Development</h4>
-                            <p class="text-gray-600 text-sm leading-relaxed">Tailored, fully responsive websites, Website themes, React web apps, and CMS integrations optimized for performance.</p>
-                        </div>
-                        <button onclick="switchTab('plans')" class="mt-6 text-brandPink font-bold text-sm hover:underline text-left">View Plans &rarr;</button>
-                    </div>
-
-                    <!-- Card 2 -->
-                    <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border border-gray-100 flex flex-col justify-between">
-                        <div>
-                            <div class="w-12 h-12 bg-brankPink-100 text-brandPink rounded-lg flex items-center justify-center text-2xl mb-4">
-                                <i class="fa-solid fa-video"></i>
-                            </div>
-                            <h4 class="text-xl font-bold mb-2">Video & Content Editing</h4>
-                            <p class="text-gray-600 text-sm leading-relaxed">Engaging social media reels, YouTube videos, corporate promotional clips, and high-impact visual graphics.</p>
-                        </div>
-                        <button onclick="switchTab('plans')" class="mt-6 text-brandPink font-bold text-sm hover:underline text-left">View plans &rarr;</button>
-                    </div>
-
-                    <!-- Card 3 -->
-                    <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border border-gray-100 flex flex-col justify-between">
-                        <div>
-                            <div class="w-12 h-12 bg-brandPink-100 text-brandPink rounded-lg flex items-center justify-center text-2xl mb-4">
-                                <i class="fa-solid fa-chart-line"></i>
-                            </div>
-                            <h4 class="text-xl font-bold mb-2">SEO & SMM Specialist</h4>
-                            <p class="text-gray-600 text-sm leading-relaxed">Data-driven search engine optimization, keyword research, link building, and targeted social media marketing campaigns.</p>
-                        </div>
-                        <button onclick="switchTab('plans')" class="mt-6 text-brandPink font-bold text-sm hover:underline text-left">View plans &rarr;</button>
-                    </div>
-
-                    <!-- Card 4 -->
-                    <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border border-gray-100 flex flex-col justify-between">
-                        <div>
-                            <div class="w-12 h-12 bg-brandPink-100 text-brandPink rounded-lg flex items-center justify-center text-2xl mb-4">
-                                <i class="fa-solid fa-newspaper"></i>
-                            </div>
-							
-                            <h4 class="text-xl font-bold mb-2">News & Business Articles</h4>
-                            <p class="text-brandPink-600 text-sm leading-relaxed">Well-researched, SEO-optimized articles, news write-ups, press releases, and compelling blog posts.</p>
-                        </div>
-                        <button onclick="switchTab('plans')" class="mt-6 text-brandPink font-bold text-sm hover:underline text-left">View plans &rarr;</button>
-                    </div> 
-
-
-                    <!-- Card 5 -->
-                    <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border border-gray-100 flex flex-col justify-between">
-                        <div>
-                            <div class="w-12 h-12 bg-brandPink-100 text-brandPink rounded-lg flex items-center justify-center text-2xl mb-4">
-                                <i class="fa-solid fa-headset"></i>
-                            </div>
-                            <h4 class="text-xl font-bold mb-2">Customer Support</h4>
-                            <p class="text-gray-600 text-sm leading-relaxed">Professional live chat management, ticket handling, email assistance, and reliable client relationship support.</p>
-                        </div>
-                        <button onclick="switchTab('support')" class="mt-6 text-brandPink font-bold text-sm hover:underline text-left">Get Assistance &rarr;</button>
-                    </div>
-
-                                        <!-- Card 6 -->
-                    <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border border-gray-100 flex flex-col justify-between">
-                        <div>
-                            <div class="w-12 h-12 bg-brandPink-100 text-brandPink rounded-lg flex items-center justify-center text-2xl mb-4">
-                                <i class="fa-solid fa-car"></i>
-                            </div>
-                            <h4 class="text-xl font-bold mb-2">Ready to Elevate Your Brand Content?</h4>
-                            <p class="text-gray-600 text-sm leading-relaxed">Get custom business designs, high-quality videos, news & business articles, and experienced customer support specialist? tailored exactly to your audience.</p>
-                        </div>
-                        <button onclick="switchTab('plans')" class="mt-6 text-brandPink font-bold text-sm hover:underline text-left">View plans &rarr;</button>
-                    </div>
-
-
-
-                    <!-- Card 7: Quick Contact Card -->
-                    <div class="bg-gradient-to-br from-brandDark to-black text-white p-6 rounded-xl shadow-sm flex flex-col justify-center">
-                        <div>
-                            <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center text-2xl mb-4 text-white">
-                                <i class="fa-solid fa-paper-plane"></i>
-                            </div>
-                            <h4 class="text-xl font-bold mb-2">Need a Custom Quote?</h4>
-                            <p class="text-gray-300 text-sm leading-relaxed">Have a unique project scope? Send a direct request and receive a custom offer tailored to your budget.</p>
-                        </div>
-                        <button onclick="switchTab('support')" class="mt-6 bg-brandPink text-black py-2 px-4 rounded font-bold text-sm hover:bg-white transition text-center">Get Custom Proposal</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= TAB 2: PLANS & SERVICES ================= -->
-        <section id="tab-plans" class="tab-content space-y-8">
-            <div class="text-center max-w-3xl mx-auto">
-                <h2 class="text-3xl font-extrabold text-gray-900">Service Packages & Pricing</h2>
-                <p class="text-gray-600 mt-2">Transparent pricing designed to fit startups, business owners, and digital creators.</p>
-            </div>
-
-            <!-- Service Filter Tabs -->
-            <div class="flex flex-wrap justify-center gap-2 border-b border-gray-200 pb-4">
-                <button onclick="filterServices('all')" class="service-filter-btn active bg-brandPink text-white px-4 py-2 rounded-full text-sm font-bold" style="padding: 20px 100px;">All Packages</strong></button>
-            </div>
-			
-			
-
-
-<!-- Pricing Grid: All Three Packages -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-
-    <!-- Package 1: Basic Starter -->
-    <div
-        onclick="selectPricingCard(this)"
-        class="pricing-card service-card web content seo bg-white rounded-2xl shadow-xl border-2 border-brandPink overflow-hidden flex flex-col relative transform transition duration-300 hover:-translate-y-1 cursor-pointer">
-
-        <div class="p-6 bg-pink-50/50 border-b border-pink-100">
-            <span class="text-xs font-bold text-brandPink uppercase tracking-wider">
-                Basic
-            </span>
-
-            <h3 class="text-2xl font-bold text-gray-900 mt-1">
-                Basic Digital Setup
-            </h3>
-
-            <div class="mt-4 flex items-baseline">
-                <span class="text-4xl font-extrabold text-brandPink">$299</span>
-                <span class="text-gray-500 text-sm ml-1">/ project</span>
-            </div>
-
-            <p class="text-gray-500 text-xs mt-2">
-                Ideal for personal blogs & small business starters
-            </p>
-        </div>
-
-        <div class="p-6 flex-grow space-y-4 text-sm text-gray-600">
-            <ul class="space-y-3">
-                <li class="flex items-center">
-                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
-                    Custom Website / HTML Layout
-                </li>
-                <li class="flex items-center">
-                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
-                    2 SEO-Optimized Articles (800 words)
-                </li>
-                <li class="flex items-center">
-                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
-                    Mobile Responsive Design
-                </li>
-                <li class="flex items-center">
-                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
-                    Basic Meta Tag Setup
-                </li>
-                <li class="flex items-center text-gray-400 line-through">
-                    <i class="fa-solid fa-xmark text-gray-300 mr-2"></i>
-                    Video Editing
-                </li>
-            </ul>
-        </div>
-
-        <div class="p-6 bg-gray-50 border-t border-gray-100 mt-auto">
-            <button
-                onclick="event.stopPropagation(); openOrderModal('Basic Digital Setup - $299')"
-                class="w-full bg-brandPink text-white hover:bg-black hover:text-white font-bold py-2.5 rounded-lg transition shadow">
-                Select Package
-            </button>
-        </div>
-    </div>
-
-
-    <!-- Package 2: Business Preferred -->
-    <div
-        onclick="selectPricingCard(this)"
-        class="pricing-card service-card web content seo bg-white rounded-2xl shadow-xl border-2 border-brandPink overflow-hidden flex flex-col relative transform transition duration-300 hover:-translate-y-1 cursor-pointer">
-
-        <div class="p-6 bg-pink-50/50 border-b border-pink-100">
-            <span class="text-xs font-bold text-brandPink uppercase tracking-wider">
-                Preferred
-            </span>
-
-            <h3 class="text-2xl font-bold text-gray-900 mt-2">
-                Business Preferred Package
-            </h3>
-
-            <div class="mt-4 flex items-baseline">
-                <span class="text-4xl font-extrabold text-brandPink">$899</span>
-                <span class="text-gray-500 text-sm ml-1">/ month</span>
-            </div>
-
-            <p class="text-gray-500 text-xs mt-2">
-                Complete web presence and marketing combo
-            </p>
-        </div>
-
-        <div class="p-6 flex-grow space-y-4 text-sm text-gray-600">
-            <ul class="space-y-3">
-                <li class="flex items-center">
-                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
-                    Full Web Development / Custom Site
-                </li>
-                <li class="flex items-center">
-                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
-                    5 Video Reels / Content Edits
-                </li>
-                <li class="flex items-center">
-                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
-                    Complete On-Page & Off-Page SEO
-                </li>
-                <li class="flex items-center">
-                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
-                    5 Business / News Articles
-                </li>
-                <li class="flex items-center text-gray-400 line-through">
-                    <i class="fa-solid fa-xmark text-gray-300 mr-2"></i>
-                    Social Media Management (1 month)
-                </li>
-            </ul>
-        </div>
-
-        <div class="p-6 bg-gray-50 border-t border-gray-100 mt-auto">
-            <button
-                onclick="event.stopPropagation(); openOrderModal('Business Preferred Package - $899')"
-                class="w-full bg-brandPink text-white hover:bg-black hover:text-white font-bold py-2.5 rounded-lg transition shadow">
-                Order Now
-            </button>
-        </div>
-
-    </div>
-
-
-    <!-- Package 3: Advanced Dedicated Specialist -->
-    <div
-        onclick="selectPricingCard(this)"
-        class="pricing-card service-card web content seo bg-white rounded-2xl shadow-xl border-2 border-brandPink overflow-hidden flex flex-col relative transform transition duration-300 hover:-translate-y-1 cursor-pointer">
-
-        <div class="p-6 bg-pink-50/50 border-b border-pink-100">
-            <span class="text-xs font-bold text-brandPink uppercase tracking-wider">
-                Advanced
-            </span>
-
-            <h3 class="text-2xl font-bold text-gray-900 mt-2">
-                Dedicated Specialist
-            </h3>
-
-            <div class="mt-4 flex items-baseline">
-                <span class="text-4xl font-extrabold text-brandPink">$1500</span>
-                <span class="text-gray-500 text-sm ml-1">/ month</span>
-            </div>
-
-            <p class="text-gray-500 text-xs mt-2">
-                Full-time dedicated virtual support & content strategy
-            </p>
-        </div>
-
-        <div class="p-6 flex-grow space-y-4 text-sm text-gray-600">
-            <ul class="space-y-3">
-                <li class="flex items-center">
-                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
-                    40 hrs/week Dedicated Support
-                </li>
-                <li class="flex items-center">
-                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
-                    Ongoing Web Maintenance
-                </li>
-                <li class="flex items-center">
-                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
-                    Live Chat & Email Customer Service
-                </li>
-                <li class="flex items-center">
-                    <i class="fa-solid fa-check text-green-500 mr-2"></i>
-                    Basic & Preferred Package Included
-                </li>
-            </ul>
-        </div>
-
-        <div class="p-6 bg-gray-50 border-t border-gray-100 mt-auto">
-            <button
-                onclick="event.stopPropagation(); openOrderModal('Advanced Dedicated Specialist - $1500')"
-                class="w-full bg-brandPink text-white hover:bg-black hover:text-white font-bold py-2.5 rounded-lg transition shadow">
-                Hire Monthly
-            </button>
-        </div>
-
-    </div>
-
-</div>
-</div>
-</section>
-
-
-
-<!-- ================= TAB 3: Pay ================= -->
-<section id="tab-pay" class="tab-content space-y-10 w-full">
-
-    <!-- CENTERED PAYMENT CONTAINER -->
-    <div class="w-full flex justify-center items-center py-10 px-4">
-
-        <!-- PAYMENT CARD -->
-        <div class="bg-black w-full max-w-3xl min-h-[420px]
-                    p-10 md:p-14 rounded-2xl shadow-lg
-                    border border-gray-200
-                    flex flex-col justify-center items-center">
-
-            <!-- PAYMENT INFORMATION -->
-            <div class="bg-white p-8 md:p-10 rounded-xl
-                        text-left space-y-6 border-2 border-black
-                        text-base text-gray-700
-                        w-full max-w-2xl mx-auto">
-
-                <h3 class="text-2xl font-bold text-center text-gray-900">
-                    Payment Information
-                </h3>
-
-                <p>
-                    <strong>Accepted Gateways:</strong>
-                    PayPal, Apple Pay, Direct Bank Transfer
-                </p>
-
-                <p>
-                    <strong>Reminder:</strong>
-                    Please pay the exact amount.
-                </p>
-
-                <!-- PAYMENT BUTTON -->
-                <div class="w-full pt-4">
-                    <a href="https://www.paypal.com/ncp/payment/X46MAEGJHQC54?locale.x=en-US&country.x=US"
-                       class="block text-center w-full bg-brandPink text-white
-                              hover:bg-black text-white font-semibold
-                              text-lg py-4 px-6 rounded-xl
-                              transition shadow-md">
-                        Proceed to Payment
-                    </a>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-      <!-- ================= TAB 4: SUPPORT ================= -->
- 
-<section id="tab-support" class="tab-content space-y-8 py-8">
-
-    <!-- SECTION HEADER -->
-    <div class="text-center max-w-3xl mx-auto">
-        <h2 class="text-3xl font-extrabold text-gray-900">
-            Support Center &amp; Contact
-        </h2>
-        <p class="text-gray-600 mt-2">
-            Have questions or need assistance? Get in touch immediately.
-        </p>
-    </div>
-
-    <!-- CENTERED TWO-COLUMN SUPPORT BOXES -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
-
-        <!-- BOX 1: CONTACT INFORMATION -->
-        <div class="bg-brandDark text-white p-8 rounded-2xl shadow-lg space-y-6">
-
-            <h3 class="text-xl font-bold border-b border-gray-700 pb-3">
-                Get in Touch via email or chat below
-            </h3>
-
-            <p class="text-gray-300 text-sm">
-                Direct lines for technical support, project inquiries, and consultation.
-            </p>
-
-            <div class="space-y-4 text-sm">
-
-                <div class="flex items-start space-x-3">
-                    <i class="fa-solid fa-envelope text-brandPink text-lg mt-1"></i>
-                    <div>
-                        <div class="font-semibold">Email</div>
-                        <div class="text-gray-300">audie1.pino@gmail.com</div>
-                    </div>
-                </div>
-
-                <div class="flex items-start space-x-3">
-                    <i class="fa-solid fa-clock text-brandPink text-lg mt-1"></i>
-                    <div>
-                        <div class="font-semibold">Working Hours</div>
-                        <div class="text-gray-300">
-                            Mon - Sat: 8:00 AM - 10:00 PM (EST)
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex items-start space-x-3">
-                    <i class="fa-solid fa-bolt text-brandPink text-lg mt-1"></i>
-                    <div>
-                        <div class="font-semibold">Average Response Time</div>
-                        <div class="text-gray-300">Under 1 Hour</div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- LIVE CHAT BUTTON -->
-
-<div class="pt-4 border-t border-gray-700 mt-6">
-    <button
-        type="button"
-        onclick="openTawkChat()"
-        class="w-full bg-brandPink text-white hover:bg-white hover:text-black font-bold py-3 rounded-lg transition flex items-center justify-center gap-2"
-    >
-        <i class="fa-solid fa-comments"></i>
-        Chat with us
+				<div class="p-6 flex-grow space-y-4 text-sm text-gray-600">
+					<ul class="space-y-3">
+						<li class="flex items-center">
+							<i class="fa-solid fa-check text-green-500 mr-2"></i>
+							Custom Website / HTML Layout
+						</li>
+						<li class="flex items-center">
+							<i class="fa-solid fa-check text-green-500 mr-2"></i>
+							2 SEO-Optimized Articles (800 words)
+						</li>
+						<li class="flex items-center">
+							<i class="fa-solid fa-check text-green-500 mr-2"></i>
+							Mobile Responsive Design
+						</li>
+						<li class="flex items-center">
+							<i class="fa-solid fa-check text-green-500 mr-2"></i>
+							Basic Meta Tag Setup
+						</li>
+						<li class="flex items-center text-gray-400 line-through">
+							<i class="fa-solid fa-xmark text-gray-300 mr-2"></i>
+							Video Editing
+						</li>
+					</ul>
+				</div>
+
+				<div class="p-6 bg-gray-50 border-t border-gray-100 mt-auto">
+					<button
+						onclick="event.stopPropagation(); openOrderModal('Basic Digital Setup - $299')"
+						class="w-full bg-brandPink text-white hover:bg-black hover:text-white font-bold py-2.5 rounded-lg transition shadow">
+						Select Package
+					</button>
+				</div>
+			</div>
+
+
+			<!-- Package 2: Business Preferred -->
+			<div
+				onclick="selectPricingCard(this)"
+				class="pricing-card service-card web content seo bg-white rounded-2xl shadow-xl border-2 border-brandPink overflow-hidden flex flex-col relative transform transition duration-300 hover:-translate-y-1 cursor-pointer">
+
+				<div class="p-6 bg-pink-50/50 border-b border-pink-100">
+					<span class="text-xs font-bold text-brandPink uppercase tracking-wider">
+						Preferred
+					</span>
+
+					<h3 class="text-2xl font-bold text-gray-900 mt-2">
+						Business Preferred Package
+					</h3>
+
+					<div class="mt-4 flex items-baseline">
+						<span class="text-4xl font-extrabold text-brandPink">$899</span>
+						<span class="text-gray-500 text-sm ml-1">/ month</span>
+					</div>
+
+					<p class="text-gray-500 text-xs mt-2">
+						Complete web presence and marketing combo
+					</p>
+				</div>
+
+				<div class="p-6 flex-grow space-y-4 text-sm text-gray-600">
+					<ul class="space-y-3">
+						<li class="flex items-center">
+							<i class="fa-solid fa-check text-green-500 mr-2"></i>
+							Full Web Development / Custom Site
+						</li>
+						<li class="flex items-center">
+							<i class="fa-solid fa-check text-green-500 mr-2"></i>
+							5 Video Reels / Content Edits
+						</li>
+						<li class="flex items-center">
+							<i class="fa-solid fa-check text-green-500 mr-2"></i>
+							Complete On-Page & Off-Page SEO
+						</li>
+						<li class="flex items-center">
+							<i class="fa-solid fa-check text-green-500 mr-2"></i>
+							5 Business / News Articles
+						</li>
+						<li class="flex items-center text-gray-400 line-through">
+							<i class="fa-solid fa-xmark text-gray-300 mr-2"></i>
+							Social Media Management (1 month)
+						</li>
+					</ul>
+				</div>
+
+				<div class="p-6 bg-gray-50 border-t border-gray-100 mt-auto">
+					<button
+						onclick="event.stopPropagation(); openOrderModal('Business Preferred Package - $899')"
+						class="w-full bg-brandPink text-white hover:bg-black hover:text-white font-bold py-2.5 rounded-lg transition shadow">
+						Order Now
+					</button>
+				</div>
+
+			</div>
+
+
+			<!-- Package 3: Advanced Dedicated Specialist -->
+			<div
+				onclick="selectPricingCard(this)"
+				class="pricing-card service-card web content seo bg-white rounded-2xl shadow-xl border-2 border-brandPink overflow-hidden flex flex-col relative transform transition duration-300 hover:-translate-y-1 cursor-pointer">
+
+				<div class="p-6 bg-pink-50/50 border-b border-pink-100">
+					<span class="text-xs font-bold text-brandPink uppercase tracking-wider">
+						Advanced
+					</span>
+
+					<h3 class="text-2xl font-bold text-gray-900 mt-2">
+						Dedicated Specialist
+					</h3>
+
+					<div class="mt-4 flex items-baseline">
+						<span class="text-4xl font-extrabold text-brandPink">$1500</span>
+						<span class="text-gray-500 text-sm ml-1">/ month</span>
+					</div>
+
+					<p class="text-gray-500 text-xs mt-2">
+						Full-time dedicated virtual support & content strategy
+					</p>
+				</div>
+
+				<div class="p-6 flex-grow space-y-4 text-sm text-gray-600">
+					<ul class="space-y-3">
+						<li class="flex items-center">
+							<i class="fa-solid fa-check text-green-500 mr-2"></i>
+							40 hrs/week Dedicated Support
+						</li>
+						<li class="flex items-center">
+							<i class="fa-solid fa-check text-green-500 mr-2"></i>
+							Ongoing Web Maintenance
+						</li>
+						<li class="flex items-center">
+							<i class="fa-solid fa-check text-green-500 mr-2"></i>
+							Live Chat & Email Customer Service
+						</li>
+						<li class="flex items-center">
+							<i class="fa-solid fa-check text-green-500 mr-2"></i>
+							Basic & Preferred Package Included
+						</li>
+					</ul>
+				</div>
+
+				<div class="p-6 bg-gray-50 border-t border-gray-100 mt-auto">
+					<button
+						onclick="event.stopPropagation(); openOrderModal('Advanced Dedicated Specialist - $1500')"
+						class="w-full bg-brandPink text-white hover:bg-black hover:text-white font-bold py-2.5 rounded-lg transition shadow">
+						Hire Monthly
+					</button>
+				</div>
+
+			</div>
+
+		</div>
+		</div>
+		</section>
+
+
+
+		<!-- ================= TAB 3: Pay ================= -->
+		<section id="tab-pay" class="tab-content space-y-10 w-full">
+
+			<!-- CENTERED PAYMENT CONTAINER -->
+			<div class="w-full flex justify-center items-center py-10 px-4">
+
+				<!-- PAYMENT CARD -->
+				<div class="bg-black w-full max-w-3xl min-h-[420px]
+							p-10 md:p-14 rounded-2xl shadow-lg
+							border border-gray-200
+							flex flex-col justify-center items-center">
+
+					<!-- PAYMENT INFORMATION -->
+					<div class="bg-white p-8 md:p-10 rounded-xl
+								text-left space-y-6 border-2 border-black
+								text-base text-gray-700
+								w-full max-w-2xl mx-auto">
+
+						<h3 class="text-2xl font-bold text-center text-gray-900">
+							Payment Information
+						</h3>
+
+						<p>
+							<strong>Accepted Gateways:</strong>
+							PayPal, Apple Pay, Direct Bank Transfer
+						</p>
+
+						<p>
+							<strong>Reminder:</strong>
+							Please pay the exact amount.
+						</p>
+
+						<!-- PAYMENT BUTTON -->
+						<div class="w-full pt-4">
+							<a href="https://www.paypal.com/ncp/payment/X46MAEGJHQC54?locale.x=en-US&country.x=US"
+							   class="block text-center w-full bg-brandPink text-white
+									  hover:bg-black text-white font-semibold
+									  text-lg py-4 px-6 rounded-xl
+									  transition shadow-md">
+								Proceed to Payment
+							</a>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</section>
+
+
+
+			  <!-- ================= TAB 4: SUPPORT ================= -->
+		 
+		<section id="tab-support" class="tab-content space-y-8 py-8">
+
+			<!-- SECTION HEADER -->
+			<div class="text-center max-w-3xl mx-auto">
+				<h2 class="text-3xl font-extrabold text-gray-900">
+					Support Center &amp; Contact
+				</h2>
+				<p class="text-gray-600 mt-2">
+					Have questions or need assistance? Get in touch immediately.
+				</p>
+			</div>
+
+			<!-- CENTERED TWO-COLUMN SUPPORT BOXES -->
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
+
+				<!-- BOX 1: CONTACT INFORMATION -->
+				<div class="bg-brandDark text-white p-8 rounded-2xl shadow-lg space-y-6">
+
+					<h3 class="text-xl font-bold border-b border-gray-700 pb-3">
+						Get in Touch via email or chat below
+					</h3>
+
+					<p class="text-gray-300 text-sm">
+						Direct lines for technical support, project inquiries, and consultation.
+					</p>
+
+					<div class="space-y-4 text-sm">
+
+						<div class="flex items-start space-x-3">
+							<i class="fa-solid fa-envelope text-brandPink text-lg mt-1"></i>
+							<div>
+								<div class="font-semibold">Email</div>
+								<div class="text-gray-300">audie1.pino@gmail.com</div>
+							</div>
+						</div>
+
+						<div class="flex items-start space-x-3">
+							<i class="fa-solid fa-clock text-brandPink text-lg mt-1"></i>
+							<div>
+								<div class="font-semibold">Working Hours</div>
+								<div class="text-gray-300">
+									Mon - Sat: 8:00 AM - 10:00 PM (EST)
+								</div>
+							</div>
+						</div>
+
+						<div class="flex items-start space-x-3">
+							<i class="fa-solid fa-bolt text-brandPink text-lg mt-1"></i>
+							<div>
+								<div class="font-semibold">Average Response Time</div>
+								<div class="text-gray-300">Under 1 Hour</div>
+							</div>
+						</div>
+
+					</div>
+
+					<!-- LIVE CHAT BUTTON -->
+
+		<div class="pt-4 border-t border-gray-700 mt-6">
+			<button
+				type="button"
+				onclick="openTawkChat()"
+				class="w-full bg-brandPink text-white hover:bg-white hover:text-black font-bold py-3 rounded-lg transition flex items-center justify-center gap-2"
+			>
+				<i class="fa-solid fa-comments"></i>
+				Chat with us
+			</button>
+		</div>
+
+
+				</div>
+
+				<!-- BOX 2: WEBSITE SUPPORT FORM -->
+
+		<div class="form-container w-full" style="background-color: #000000; border: 1px solid #000000; border-radius: 6px; overflow: hidden;">
+
+			<!-- BLACK FORM HEADER -->
+			<div class="form-header" style="background-color: #000000; color: #ffffff; padding: 20px; text-align: center;">
+				Website Support Form
+			</div>
+
+			<!-- WHITE FORM BODY -->
+			<form id="supportTicketForm" style="background-color: #ffffff; padding: 25px;">
+
+				<div class="form-group-row">
+
+					<div class="form-group">
+						<label for="userName">Your Name</label>
+						<input type="text" id="userName" required placeholder="John Doe">
+					</div>
+
+					<div class="form-group">
+						<label for="userEmail">Your Email</label>
+						<input type="email" id="userEmail" required placeholder="john@example.com">
+					</div>
+
+				</div>
+
+				<div class="form-group full-width">
+					<label for="subject">Subject</label>
+					<input type="text" id="subject" required placeholder="State subject here">
+				</div>
+
+				<div class="form-group full-width">
+					<label for="category">Service Category</label>
+					<select id="category" required>
+						<option value="">Select a Service</option>
+						<option value="Web Development Inquiry">Web Development Service</option>
+						<option value="Video Editing Service">Video Editing Service</option>
+						<option value="SEO/SMM Service">SEO/SMM Service</option>
+						<option value="Article Writing Service">Article Writing Service</option>
+						<option value="Customer Support Service">Customer Support Service</option>
+						<option value="Other Online Services">Other Online Services</option>
+					</select>
+				</div>
+
+				<div class="form-group full-width">
+					<label for="message">Message Detail</label>
+					<textarea
+						id="message"
+						required
+						placeholder="Please describe your concern to better assist you..."
+					></textarea>
+				</div>
+
+				<!-- PINK SUBMIT BUTTON -->
+				<button
+			   <button
+		  type="submit"
+		  class="btn-submit"
+		  id="submitBtn"
+		>
+		  Send Ticket
+		</button>
+
+			</form>
+
+			<!-- STATUS MESSAGE -->
+			<div id="statusMessage" class="status-message" style="background-color: #ffffff;"></div>
+
+		</div>
+
+
+		</section>
+
+					
+				<!-- ================= TAB 5: FAQ'S ================= -->
+				<section id="tab-faqs" class="tab-content space-y-8">
+					<div class="text-center max-w-3xl mx-auto">
+						<h2 class="text-3xl font-extrabold text-gray-900">Frequently Asked Questions</h2>
+						<p class="text-gray-600 mt-2">Find quick answers regarding services, delivery times, and workflows.</p>
+					</div>
+
+					<div class="max-w-4xl mx-auto space-y-4">
+						<!-- FAQ 1 -->
+							<div class="accordion-item bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+							<button onclick="toggleAccordion(this)" class="w-full p-5 text-left font-semibold text-gray-800 flex justify-between items-center focus:outline-none hover:bg-gray-50">
+								<span>Why should you hire me?</span>
+								<i class="fa-solid fa-chevron-down chevron-icon text-brandPink transition-transform duration-300"></i>
+							</button>
+							<div class="accordion-content px-5 pb-5 text-gray-600 text-sm leading-relaxed">
+						         You should hire me for one reliable partner who handles web development, video & content editing, customer service, data entry, and on-demand ad-hoc tasks &mdash; you get one person taking full responsibility and ownership of your work &mdash; all with the same dedication to quality, deadlines, and your business success. No need to juggle multiple freelancers; <b> I&apos;m your one-point solution.</b>
+						</div>
+						
+							<div class="accordion-item bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+							<button onclick="toggleAccordion(this)" class="w-full p-5 text-left font-semibold text-gray-800 flex justify-between items-center focus:outline-none hover:bg-gray-50">
+								<span>How long will you stay?</span>
+								<i class="fa-solid fa-chevron-down chevron-icon text-brandPink transition-transform duration-300"></i>
+							</button>
+							<div class="accordion-content px-5 pb-5 text-gray-600 text-sm leading-relaxed">
+							I&apos;m here to build a lasting professional relationship and support your business for as long as you need my services. My goal isn&apos;t just short-term work &mdash; I look for long-term partnerships where I can grow alongside your business. I plan to stay and contribute for as long as my skills are needed and I&apos;m making a positive impact. I value consistency and continuity &mdash; you can rely on me to be here through every stage of your business journey.
+						</div>
+						
+						<div class="accordion-item bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+							<button onclick="toggleAccordion(this)" class="w-full p-5 text-left font-semibold text-gray-800 flex justify-between items-center focus:outline-none hover:bg-gray-50">
+								<span>What turn-around times can I expect for Web Development projects?</span>
+								<i class="fa-solid fa-chevron-down chevron-icon text-brandPink transition-transform duration-300"></i>
+							</button>
+							<div class="accordion-content px-5 pb-5 text-gray-600 text-sm leading-relaxed">
+								Standard Web Development / Website template customizations typically take 3 to 7 business days depending on complexity. Full custom web application projects are scheduled based on detailed project scopes.
+							</div>
+						</div>
+
+						<!-- FAQ 2 -->
+						<div class="accordion-item bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+							<button onclick="toggleAccordion(this)" class="w-full p-5 text-left font-semibold text-gray-800 flex justify-between items-center focus:outline-none hover:bg-gray-50">
+								<span>Can you integrate landing pages or CTA directly into any preferred domains?</span>
+								<i class="fa-solid fa-chevron-down chevron-icon text-brandPink transition-transform duration-300"></i>
+							</button>
+							<div class="accordion-content px-5 pb-5 text-gray-600 text-sm leading-relaxed">
+								Yes! All code provided is clean, standard HTML/CSS/JavaScript with CDN references that work seamlessly in any domains.
+							</div>
+						</div>
+
+						<!-- FAQ 3 -->
+						<div class="accordion-item bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+							<button onclick="toggleAccordion(this)" class="w-full p-5 text-left font-semibold text-gray-800 flex justify-between items-center focus:outline-none hover:bg-gray-50">
+								<span>How does the SEO and Social Media Marketing service work?</span>
+								<i class="fa-solid fa-chevron-down chevron-icon text-brandPink transition-transform duration-300"></i>
+							</button>
+							<div class="accordion-content px-5 pb-5 text-gray-600 text-sm leading-relaxed">
+								We begin with an audit of your existing site or social accounts, identify target keywords and audience demographics, create tailored content schedules, and optimize meta headers and backlinks.
+							</div>
+						</div>
+
+						<!-- FAQ 4 -->
+						<div class="accordion-item bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+							<button onclick="toggleAccordion(this)" class="w-full p-5 text-left font-semibold text-gray-800 flex justify-between items-center focus:outline-none hover:bg-gray-50">
+								<span>What payment methods are supported?</span>
+								<i class="fa-solid fa-chevron-down chevron-icon text-brandPink transition-transform duration-300"></i>
+							</button>
+							<div class="accordion-content px-5 pb-5 text-gray-600 text-sm leading-relaxed">
+								Clicking the "Pay" button in the navigation opens the payment interface. We accept major credit cards, PayPal, and online wire transfers depending on project terms.
+							</div>
+						</div>
+
+						<!-- FAQ 5 -->
+						<div class="accordion-item bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+							<button onclick="toggleAccordion(this)" class="w-full p-5 text-left font-semibold text-gray-800 flex justify-between items-center focus:outline-none hover:bg-gray-50">
+								<span>Do you offer ongoing monthly support retainers?</span>
+								<i class="fa-solid fa-chevron-down chevron-icon text-brandPink transition-transform duration-300"></i>
+							</button>
+							<div class="accordion-content px-5 pb-5 text-gray-600 text-sm leading-relaxed">
+								Yes, you can hire Audie Pino on a monthly dedicated retainer for ongoing customer support, regular blog writing, site maintenance, and social media management.
+							</div>
+						</div>
+					</div>
+				</section>
+				
+				
+
+		<!-- ================= TAB 6: ABOUT ================= -->
+
+		<section id="tab-about" class="tab-content space-y-10 mt-20">
+
+			<!-- Let's create something remarkable together -->
+			<div class="bg-brandPink p-8 rounded-2xl shadow-sm border border-gray-200 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+
+				<div class="text-center">
+					<div class="w-auto min-h-[350px] bg-gradient-to-tr from-brandPink to-brandBlue rounded-full mx-auto flex items-center justify-center text-white text-5xl font-bold shadow-lg border-4 border-white">
+						AP
+					</div>
+
+					<p class="text-brandPink font-medium text-sm">
+						Web Developer &amp; Content Specialist
+					</p>
+				</div>
+
+				<div class="md:col-span-2 space-y-4 text-white sm:text-base leading-relaxed">
+					<h4 class="text-3xl sm:text-5xl font-extrabold leading-tight text-xl font-bold text-black">Your All-Round (Phone, email, chat, & Data Entry) Web Developer, Digital Creator (All Platforms), & Reliable Support Specialist.</h4>
+
+					<p>
+						I am <strong>Audie Pino</strong>, your all-round solution &mdash; a Web Developer, Digital Creator across all platforms, and Reliable Customer Support Specialist combined into one dedicated professional. I build functional, responsive websites; create engaging content for every digital platform; and provide seamless phone, email, chat, and accurate data entry support. Expert editing with Adobe Premiere Pro for advanced workflows, DaVinci Resolve for professional colour grading and high-end finishing, and CapCut for fast, high-impact social media content. Skilled across cinematic productions, documentaries, animated explainers, tutorials, talking-head videos, B-roll sequences, motion graphics, 2D/3D animation, podcast episodes, and gaming highlights. Every project is crafted with attention to detail, visual consistency, and platform-ready quality. Versatile editing solutions built for your audience &mdash; delivering professional content for Facebook, TikTok, YouTube, Instagram, and other social and web platforms.
+						One person taking full ownership of your digital presence and customer operations &mdash; saving you time, ensuring consistency, and delivering reliable results every step of the way.
+
+					</p>
+					
+
+				</div>
+			</div>
+
+
+			<!-- SKILLS PROGRESS BARS -->
+			<div class="w-auto min-h-[450px] bg-brandPink p-8 rounded-none shadow-sm border border-gray-200 space-y-6">
+
+				<h3 class="text-5xl font-extrabold leading-tight font-bold text-black text-center">
+					Technical Mastery
+				</h3>
+
+				<div class="space-y-4">
+
+					<div>
+						<div class="flex justify-between text-black font-semibold mb-1">
+							<span>Web Development (HTML/CSS/JS/React)</span>
+							<span class="text-white">98%</span>
+						</div>
+						<div class="w-full bg-black h-2.5 rounded-full overflow-hidden">
+							<div class="bg-white h-2.5 rounded-full" style="width: 95%"></div>
+						</div>
+					</div>
+
+					<div>
+						<div class="flex justify-between text-black font-semibold mb-1">
+							<span>SEO &amp; Social Media Marketing</span>
+							<span class="text-white">95%</span>
+						</div>
+						<div class="w-full bg-black h-2.5 rounded-full overflow-hidden">
+							<div class="bg-white h-2.5 rounded-full" style="width: 90%"></div>
+						</div>
+					</div>
+
+					<div>
+						<div class="flex justify-between text-black font-semibold mb-1">
+							<span>Video &amp; Multimedia Editing</span>
+							<span class="text-white">95%</span>
+						</div>
+						<div class="w-full bg-black h-2.5 rounded-full overflow-hidden">
+							<div class="bg-white h-2.5 rounded-full" style="width: 88%"></div>
+						</div>
+					</div>
+
+					<div>
+						<div class="flex justify-between text-black font-semibold mb-1">
+							<span>News &amp; Business Article Writing</span>
+							<span class="text-white">96%</span>
+						</div>
+						<div class="w-full bg-black h-2.5 rounded-full overflow-hidden">
+							<div class="bg-white h-2.5 rounded-full" style="width: 92%"></div>
+						</div>
+					</div>
+
+					<div>
+						<div class="flex justify-between text-black font-semibold mb-1">
+							<span>Phone, Email, Chat, Data Entry &amp; Customer Support</span>
+							<span class="text-white">98%</span>
+						</div>
+						<div class="w-full bg-black	 h-2.5 rounded-full overflow-hidden">
+							<div class="bg-white h-2.5 rounded-full" style="width: 98%"></div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+
+			<!-- ABOUT TAB HERO SECTION - KEEP ONLY HERE -->
+  <div class="w-auto min-h-[550px] bg-white p-8 items-center justify-center text-center rounded-none shadow-sm border border-gray-200 space-y-6">
+    <h2 class="text-5xl font-extrabold leading-tight t-3xl sm -center justify-center text-black">
+      Let's go ahead and create something remarkable together.
+    </h2>
+
+    <p class="mt-4">
+      <small>
+        Get custom website designs, high-quality videos, personal &amp;
+        business articles, powered by an experienced omni-channel customer support specialist (jack-of-all trades)&mdash;
+        tailored exactly for your audience.
+      </small>
+    </p>
+      
+    <button onclick="switchTab('plans')" class="text-5xl font-extrabold leading-tight rounded-5x1 border-brankPink mt-6 bg-brandPink text-white hover:bg-black hover:text-white font-bold py-10 px-40 rounded-lg shadow-lg hover:shadow-xl transition duration-200">
+      Get Started Today!
     </button>
-</div>
-
-
-        </div>
-
-        <!-- BOX 2: WEBSITE SUPPORT FORM -->
-
-<div class="form-container w-full" style="background-color: #000000; border: 1px solid #000000; border-radius: 6px; overflow: hidden;">
-
-    <!-- BLACK FORM HEADER -->
-    <div class="form-header" style="background-color: #000000; color: #ffffff; padding: 20px; text-align: center;">
-        Website Support Form
-    </div>
-
-    <!-- WHITE FORM BODY -->
-    <form id="supportTicketForm" style="background-color: #ffffff; padding: 25px;">
-
-        <div class="form-group-row">
-
-            <div class="form-group">
-                <label for="userName">Your Name</label>
-                <input type="text" id="userName" required placeholder="John Doe">
-            </div>
-
-            <div class="form-group">
-                <label for="userEmail">Your Email</label>
-                <input type="email" id="userEmail" required placeholder="john@example.com">
-            </div>
-
-        </div>
-
-        <div class="form-group full-width">
-            <label for="subject">Subject</label>
-            <input type="text" id="subject" required placeholder="State subject here">
-        </div>
-
-        <div class="form-group full-width">
-            <label for="category">Service Category</label>
-            <select id="category" required>
-                <option value="">Select a Service</option>
-                <option value="Web Development Inquiry">Web Development Service</option>
-                <option value="Video Editing Service">Video Editing Service</option>
-                <option value="SEO/SMM Service">SEO/SMM Service</option>
-                <option value="Article Writing Service">Article Writing Service</option>
-                <option value="Customer Support Service">Customer Support Service</option>
-                <option value="Other Online Services">Other Online Services</option>
-            </select>
-        </div>
-
-        <div class="form-group full-width">
-            <label for="message">Message Detail</label>
-            <textarea
-                id="message"
-                required
-                placeholder="Please describe your concern to better assist you..."
-            ></textarea>
-        </div>
-
-        <!-- PINK SUBMIT BUTTON -->
-        <button
-       <button
-  type="submit"
-  class="btn-submit"
-  id="submitBtn"
->
-  Send Ticket
-</button>
-
-    </form>
-
-    <!-- STATUS MESSAGE -->
-    <div id="statusMessage" class="status-message" style="background-color: #ffffff;"></div>
-
-</div>
-
-
-</section>
-
-			
-        <!-- ================= TAB 5: FAQ'S ================= -->
-        <section id="tab-faqs" class="tab-content space-y-8">
-            <div class="text-center max-w-3xl mx-auto">
-                <h2 class="text-3xl font-extrabold text-gray-900">Frequently Asked Questions</h2>
-                <p class="text-gray-600 mt-2">Find quick answers regarding services, delivery times, and workflows.</p>
-            </div>
-
-            <div class="max-w-4xl mx-auto space-y-4">
-                <!-- FAQ 1 -->
-                <div class="accordion-item bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-                    <button onclick="toggleAccordion(this)" class="w-full p-5 text-left font-semibold text-gray-800 flex justify-between items-center focus:outline-none hover:bg-gray-50">
-                        <span>What turn-around times can I expect for Web Development projects?</span>
-                        <i class="fa-solid fa-chevron-down chevron-icon text-brandPink transition-transform duration-300"></i>
-                    </button>
-                    <div class="accordion-content px-5 pb-5 text-gray-600 text-sm leading-relaxed">
-                        Standard Web Development / Website template customizations typically take 3 to 7 business days depending on complexity. Full custom web application projects are scheduled based on detailed project scopes.
-                    </div>
-                </div>
-
-                <!-- FAQ 2 -->
-                <div class="accordion-item bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-                    <button onclick="toggleAccordion(this)" class="w-full p-5 text-left font-semibold text-gray-800 flex justify-between items-center focus:outline-none hover:bg-gray-50">
-                        <span>Can you integrate landing pages or CTA directly into any preferred domains?</span>
-                        <i class="fa-solid fa-chevron-down chevron-icon text-brandPink transition-transform duration-300"></i>
-                    </button>
-                    <div class="accordion-content px-5 pb-5 text-gray-600 text-sm leading-relaxed">
-                        Yes! All code provided is clean, standard HTML/CSS/JavaScript with CDN references that work seamlessly in any domains.
-                    </div>
-                </div>
-
-                <!-- FAQ 3 -->
-                <div class="accordion-item bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-                    <button onclick="toggleAccordion(this)" class="w-full p-5 text-left font-semibold text-gray-800 flex justify-between items-center focus:outline-none hover:bg-gray-50">
-                        <span>How does the SEO and Social Media Marketing service work?</span>
-                        <i class="fa-solid fa-chevron-down chevron-icon text-brandPink transition-transform duration-300"></i>
-                    </button>
-                    <div class="accordion-content px-5 pb-5 text-gray-600 text-sm leading-relaxed">
-                        We begin with an audit of your existing site or social accounts, identify target keywords and audience demographics, create tailored content schedules, and optimize meta headers and backlinks.
-                    </div>
-                </div>
-
-                <!-- FAQ 4 -->
-                <div class="accordion-item bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-                    <button onclick="toggleAccordion(this)" class="w-full p-5 text-left font-semibold text-gray-800 flex justify-between items-center focus:outline-none hover:bg-gray-50">
-                        <span>What payment methods are supported?</span>
-                        <i class="fa-solid fa-chevron-down chevron-icon text-brandPink transition-transform duration-300"></i>
-                    </button>
-                    <div class="accordion-content px-5 pb-5 text-gray-600 text-sm leading-relaxed">
-                        Clicking the "Pay" button in the navigation opens the payment interface. We accept major credit cards, PayPal, and online wire transfers depending on project terms.
-                    </div>
-                </div>
-
-                <!-- FAQ 5 -->
-                <div class="accordion-item bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-                    <button onclick="toggleAccordion(this)" class="w-full p-5 text-left font-semibold text-gray-800 flex justify-between items-center focus:outline-none hover:bg-gray-50">
-                        <span>Do you offer ongoing monthly support retainers?</span>
-                        <i class="fa-solid fa-chevron-down chevron-icon text-brandPink transition-transform duration-300"></i>
-                    </button>
-                    <div class="accordion-content px-5 pb-5 text-gray-600 text-sm leading-relaxed">
-                        Yes, you can hire Audie Pino on a monthly dedicated retainer for ongoing customer support, regular blog writing, site maintenance, and social media management.
-                    </div>
-                </div>
-            </div>
-        </section>
-		
-		
-
-<!-- ================= TAB 6: ABOUT ================= -->
-
-<section id="tab-about" class="tab-content space-y-10">
-
-    <!-- Let's create something remarkable together -->
-    <div class="bg-brandPink p-8 rounded-2xl shadow-sm border border-gray-200 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-
-        <div class="text-center">
-            <div class="w-36 h-36 bg-gradient-to-tr from-brandPink to-brandBlue rounded-full mx-auto flex items-center justify-center text-white text-5xl font-bold shadow-lg border-4 border-white">
-                AP
-            </div>
-
-            <p class="text-brandPink font-medium text-sm">
-                Web Developer &amp; Content Specialist
-            </p>
-        </div>
-
-        <div class="md:col-span-2 space-y-4 text-white sm:text-base leading-relaxed">
-            <h4 class="text-xl font-bold text-black">Your All-Round (Phone, email, chat, & Data Entry) Web Developer, Digital Creator (All Platforms), & Reliable Support Specialist.</h4>
-
-            <p>
-                I am <strong>Audie Pino</strong>, I believe great work happens where creativity meets reliability&mdash;and that&apos;s the foundation of everything I do.
-
-As a front-end web developer, I transform designs into functional, accessible websites that welcome visitors and work flawlessly on every device. As a script writer and video editor, I shape ideas into narratives that resonate&mdash;writing with purpose and editing with precision. And as an experienced omni-channel support professional, I bring that same dedication to every interaction: helping customers via phone, email, and live chat, while keeping systems organized through meticulous data entry.
-
-Whether I&apos;m building your online presence, telling your brand&apos;s story, or caring for your community, I bring the same standard: excellence, attention to detail, and a genuine commitment to your goals.
-
-            </p>
-			
-
-        </div>
-    </div>
-	
-    <br>
-	<br>
-
-
-    <!-- ABOUT TAB HERO SECTION - KEEP ONLY HERE -->
-    <section class="hero-section">
-        <h2 class="text-xl font-bold text-black">Let&apos;s go ahead and create something remarkable together.</h2>
-
-        <p><small>
-            Get custom website designs, high-quality videos, personal &amp;
-            business articles, powered by an experienced omni-channel customer support specialist (jack-of-all trades)&mdash;
-           tailored exactly for your audience.</small>
-        </p>
-		
-   <div class="pt-4 flex flex-wrap gap-4 justify-center">
-  <button onclick="switchTab('plans')" class="bg-brandPink text-white hover:bg-black hover:text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:shadow-xl transition duration-200">
-    Get Started Today!
-  </button>
-</div>
-
-
-    </section>
-
-    <!-- SKILLS PROGRESS BARS -->
-    <div class="bg-brandDark p-8 rounded-2xl shadow-sm border border-gray-200 space-y-6">
-
-        <h3 class="text-2xl font-bold text-brandPink text-center">
-            Technical Mastery
-        </h3>
-
-        <div class="space-y-4">
-
-            <div>
-                <div class="flex justify-between text-brandPink font-semibold mb-1">
-                    <span>Web Development (HTML/CSS/JS/React)</span>
-                    <span class="text-brandPink">98%</span>
-                </div>
-                <div class="w-full bg-black h-2.5 rounded-full overflow-hidden">
-                    <div class="bg-white h-2.5 rounded-full" style="width: 95%"></div>
-                </div>
-            </div>
-
-            <div>
-                <div class="flex justify-between text-brandPink font-semibold mb-1">
-                    <span>SEO &amp; Social Media Marketing</span>
-                    <span class="text-brandPink">95%</span>
-                </div>
-                <div class="w-full bg-black h-2.5 rounded-full overflow-hidden">
-                    <div class="bg-white h-2.5 rounded-full" style="width: 90%"></div>
-                </div>
-            </div>
-
-            <div>
-                <div class="flex justify-between text-brandPink font-semibold mb-1">
-                    <span>Video &amp; Multimedia Editing</span>
-                    <span class="text-brandPink">95%</span>
-                </div>
-                <div class="w-full bg-black h-2.5 rounded-full overflow-hidden">
-                    <div class="bg-white h-2.5 rounded-full" style="width: 88%"></div>
-                </div>
-            </div>
-
-            <div>
-                <div class="flex justify-between text-brandPink font-semibold mb-1">
-                    <span>News &amp; Business Article Writing</span>
-                    <span class="text-brandPink">96%</span>
-                </div>
-                <div class="w-full bg-black h-2.5 rounded-full overflow-hidden">
-                    <div class="bg-white h-2.5 rounded-full" style="width: 92%"></div>
-                </div>
-            </div>
-
-            <div>
-                <div class="flex justify-between text-brandPink font-semibold mb-1">
-                    <span>Phone, Email, Chat, Data Entry &amp; Customer Support</span>
-                    <span class="text-brandPink">98%</span>
-                </div>
-                <div class="w-full bg-black h-2.5 rounded-full overflow-hidden">
-                    <div class="bg-white h-2.5 rounded-full" style="width: 98%"></div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-</section>
-
-		
-
-<!-- ABOUT TAB -->
-<div id="about" class="tab-content">
-    <section class="hero-section">
-        <h2>Let&apos;s go ahead and create something remarkable together.</h2>
-        <p>
-            Get custom business designs, high-quality videos, news &
-            business articles, and experienced customer support
-            specialist—tailored exactly to your audience.
-        </p>
-        <a href="order.html" class="cta-button">Get Started Today</a>
-    </section>
-
-    <!-- Other About content -->
-</div>
-
-
+  </div>
   
-  <!-- ================= TAB 7: Video & Photo Editing Portfolio ================= -->
-
-<!-- CANVA PORTFOLIO FRAME -->
-<section class="canva-portfolio" id="tab-video-photo-editing-portfolio">
-
-
-    <div class="canva-frame">
-
-        <a href="https://audie-pino.my.canva.site/"
-           target="_blank"
-           rel="noopener noreferrer"
-           class="canva-preview">
-
-            <div class="canva-preview-content">
-                <h2>Audie Pino</h2>
-                <p>Video &amp; Photo Editing Portfolio</p>
-                <span>VIEW PORTFOLIO ?</span>
-            </div>
-
-        </a>
-
-    </div>
-
 </section>
 
 
-    </main>
+				<!-- ================= TAB 7: My Portfolio ================= -->
+		<section id="tab-portfolio" class="tab-content space-y-10">
 
-	<br>
-    <!-- FOOTER -->
-<footer class="w-full bg-brandPink text-gray-400 py-8 border-t border-gray-800 text-sm mt-auto">
-    <div class="w-full max-w-7xl mx-auto px-4 text-center space-y-3">
-
-        <p class="text-white font-semibold">
-            Audie Pino &mdash; Your Trusted Top-notch Digital Specialist
-        </p>
-
-        <p class="text-black font-semibold">
-            &copy;<span id="year"></span> Audie Pino. All rights reserved.
-        </p>
-
-    </div>
-</footer>
-
-
-<!-- MODAL 1: PAY MODAL -->
-<div id="payModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
-    <!-- PAYMENT CARD CONTAINER -->
-    <div class="bg-brandPink rounded-2xl w-full max-w-lg min-h-[560px] p-8 shadow-2xl relative text-center flex flex-col justify-evenly items-center border-2 border-white">
-
-        <!-- CLOSE BUTTON -->
-        <button onclick="closePayModal()"
-            class="absolute top-5 right-5 text-white hover:text-gray-200">
-            <i class="fa-solid fa-xmark text-xl"></i>
-        </button>
-
-        <!-- PAYMENT ICON -->
-        <div class="w-24 h-24 bg-white text-brandPink rounded-full flex items-center justify-center text-3xl mx-auto">
-            <i class="fa-solid fa-credit-card"></i>
-        </div>
-
-        <!-- TITLE -->
-        <h3 class="text-3xl font-bold text-brandWhite">
-            Payment Center
-        </h3>
-
-        <!-- DESCRIPTION -->
-        <p class="text-brandWhite text-base max-w-sm" style="margin: 0;">
-            <small>Secure online payment portal for Audie Pino's client services.</small>
-        </p>
-		
-		
-
-        <!-- PAYMENT INFORMATION -->
-        <div class="bg-white p-5 rounded-xl text-left space-y-3 border-2 border-black text-sm text-gray-700 w-full" style="margin: 0;">
-            <p>
-                <strong>Accepted Gateways:</strong>
-                PayPal, Apple Pay, Direct Bank Transfer
-            </p>
-            <p>
-                <strong>Reminder:</strong>
-                Please pay the exact amount.
-            </p>
-            <div class="bg-brandPink text-white hover:bg-black hover:text-white text-center flex flex-col justify-evenly items-center">
-                <a href="https://www.paypal.com/ncp/payment/X46MAEGJHQC54?locale.x=en-US&country.x=US"
-                 class="block text-center w-full bg-BrandPink hover:bg-b text-white font-semibold py-3 rounded-xl transition shadow-md">
-                Proceed to payment
+                  <!-- Let's create something remarkable together -->
+           <div class="w-[80vw] max-w-none relative left-1/2 -translate-x-1/2 min-h-[750px] bg-brandPink py-10 px-10 rounded-2xl shadow-sm mt-10 border border-gray-200 flex items-center justify-center">
+			    <a href="https://audie-pino.my.canva.site/"
+                     target="_blank"
+                     rel="noopener noreferrer"
+					 
+                    class="w-full h-full flex flex-col items-center justify-center text-center">
+                    <h2 class="text-white text-2xl">Audie Pino</h2>
+					
+                    <button type="button" onclick="window.open('https://audie-pino.my.canva.site/', '_blank')" class="inline-block text-white text-5xl font-extrabold leading-tight mt-4 px-10 py-5 bg-brandDark text-white hover:bg-white hover:text-black rounded-xl shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer">
+                       VIEW MY PORTFOLIO
+                    </button>
                 </a>
-            </div>
-        </div>
-    </div>
-</div>
+           </div>  
+		  
+		</section>
+		  
+
+			<br>
+			<!-- FOOTER -->
+		<footer class="w-full bg-brandPink text-gray-400 py-8 border-t border-gray-800 text-sm mt-auto">
+			<div class="w-full max-w-7xl mx-auto px-4 text-center space-y-3">
+
+				<p class="text-white font-semibold">
+					Audie Pino &mdash; Your Trusted Top-notch Digital Specialist
+				</p>
+
+				<p class="text-black font-semibold">
+					&copy;<span id="year"></span> Audie Pino. All rights reserved.
+				</p>
+
+			</div>
+		</footer>
 
 
-    <!-- MODAL 2: ORDER PACKAGE MODAL -->
-    <div id="orderModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative text-center space-y-4">
-            <button onclick="closeOrderModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-            <h3 class="text-2xl font-bold text-gray-900"><small>Please pay the exact amount.</small></h3>
-            <p id="orderPackageTitle" class="text-brandPink font-bold text-lg"></p>
-            <form onsubmit="handleOrderSubmit(event)" class="space-y-3 text-center">
-            <div class="mt-6">
-			
-<a href="https://www.paypal.com/ncp/payment/X46MAEGJHQC54?locale.x=en-US&country.x=US"
-   class="block text-center w-full bg-gray-900 hover:bg-gray-800 text-white text-xl font-bold py-5 rounded-xl transition shadow-md">
-    Proceed to Checkout
-</a>
+		<!-- MODAL 1: PAY MODAL -->
+		<div id="payModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
+			<!-- PAYMENT CARD CONTAINER -->
+			<div class="bg-brandPink rounded-2xl w-full max-w-lg min-h-[560px] p-8 shadow-2xl relative text-center flex flex-col justify-evenly items-center border-2 border-white">
 
-</div>
-            </form>
-        </div>
-    </div>
+				<!-- CLOSE BUTTON -->
+				<button onclick="closePayModal()"
+					class="absolute top-5 right-5 text-white hover:text-gray-200">
+					<i class="fa-solid fa-xmark text-xl"></i>
+				</button>
+
+				<!-- PAYMENT ICON -->
+				<div class="w-24 h-24 bg-white text-brandPink rounded-full flex items-center justify-center text-3xl mx-auto">
+					<i class="fa-solid fa-credit-card"></i>
+				</div>
+
+				<!-- TITLE -->
+				<h3 class="text-3xl font-bold text-brandWhite">
+					Payment Center
+				</h3>
+
+				<!-- DESCRIPTION -->
+				<p class="text-brandWhite text-base max-w-sm" style="margin: 0;">
+					<small>Secure online payment portal for Audie Pino's client services.</small>
+				</p>
+				
+				
+
+				<!-- PAYMENT INFORMATION -->
+				<div class="bg-white p-5 rounded-xl text-left space-y-3 border-2 border-black text-sm text-gray-700 w-full" style="margin: 0;">
+					<p>
+						<strong>Accepted Gateways:</strong>
+						PayPal, Apple Pay, Direct Bank Transfer
+					</p>
+					<p>
+						<strong>Reminder:</strong>
+						Please pay the exact amount.
+					</p>
+					<div class="bg-brandPink text-white hover:bg-black hover:text-white text-center flex flex-col justify-evenly items-center">
+						<a href="https://www.paypal.com/ncp/payment/X46MAEGJHQC54?locale.x=en-US&country.x=US"
+						 class="block text-center w-full bg-BrandPink hover:bg-b text-white font-semibold py-3 rounded-xl transition shadow-md">
+						Proceed to payment
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
 
 
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-    var Tawk_API = Tawk_API || {};
-    var Tawk_LoadStart = new Date();
+			<!-- MODAL 2: ORDER PACKAGE MODAL -->
+			<div id="orderModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
+				<div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative text-center space-y-4">
+					<button onclick="closeOrderModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700">
+						<i class="fa-solid fa-xmark text-xl"></i>
+					</button>
+					<h3 class="text-2xl font-bold text-gray-900"><small>Please pay the exact amount.</small></h3>
+					<p id="orderPackageTitle" class="text-brandPink font-bold text-lg"></p>
+					<form onsubmit="handleOrderSubmit(event)" class="space-y-3 text-center">
+					<div class="mt-6">
+					
+		<a href="https://www.paypal.com/ncp/payment/X46MAEGJHQC54?locale.x=en-US&country.x=US"
+		   class="block text-center w-full bg-gray-900 hover:bg-gray-800 text-white text-xl font-bold py-5 rounded-xl transition shadow-md">
+			Proceed to Checkout
+		</a>
 
-    Tawk_API.customStyle = {
-        visibility: {
-            desktop: { position: 'bl', xOffset: 20, yOffset: 20 },
-            mobile: { position: 'bl', xOffset: 0, yOffset: 0 }
-        }
-    };
+		</div>
+					</form>
+				</div>
+			</div>
 
-    function openTawkChat() {
-        if (typeof Tawk_API !== 'undefined' && Tawk_API.maximize) {
-            Tawk_API.maximize();
-        }
-    }
 
-    (function() {
-        var s1 = document.createElement("script");
-        var s0 = document.getElementsByTagName("script")[0];
-        s1.async = true;
-        s1.src = 'https://embed.tawk.to/6adf0df30132003477dc67db/1k5rkt0en';
-        s1.charset = 'UTF-8';
-        s1.setAttribute('crossorigin', '*');
-        s0.parentNode.insertBefore(s1, s0);
-    })();
-</script>
-<!--End of Tawk.to Script-->
+		<!--Start of Tawk.to Script-->
+		<script type="text/javascript">
+			var Tawk_API = Tawk_API || {};
+			var Tawk_LoadStart = new Date();
 
-<!-- CONSOLIDATED JAVASCRIPT LOGIC -->
+			Tawk_API.customStyle = {
+				visibility: {
+					desktop: { position: 'bl', xOffset: 20, yOffset: 20 },
+					mobile: { position: 'bl', xOffset: 0, yOffset: 0 }
+				}
+			};
+
+			function openTawkChat() {
+				if (typeof Tawk_API !== 'undefined' && Tawk_API.maximize) {
+					Tawk_API.maximize();
+				}
+			}
+
+			(function() {
+				var s1 = document.createElement("script");
+				var s0 = document.getElementsByTagName("script")[0];
+				s1.async = true;
+				s1.src = 'https://embed.tawk.to/6adf0df30132003477dc67db/1k5rkt0en';
+				s1.charset = 'UTF-8';
+				s1.setAttribute('crossorigin', '*');
+				s0.parentNode.insertBefore(s1, s0);
+			})();
+		</script>
+		<!--End of Tawk.to Script-->
+
+		<!-- CONSOLIDATED JAVASCRIPT LOGIC -->
+		<script>
+			// --------------------------
+			// YEAR
+			// --------------------------
+			document.getElementById('year').textContent = new Date().getFullYear();
+
+			// --------------------------
+			// MOBILE MENU
+			// --------------------------
+			const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+			const navLinks = document.getElementById('navLinks');
+			mobileMenuBtn.addEventListener('click', () => {
+				navLinks.classList.toggle('hidden');
+			});
+
+			// --------------------------
+			// TAB SWITCHING — ENHANCED WATERMARK REMOVAL
+			// --------------------------
+			function switchTab(tabId) {
+				// Hide all tabs
+				document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+
+				// Show selected tab
+				const activeTab = document.getElementById(`tab-${tabId}`);
+				if (activeTab) {
+					activeTab.classList.add('active');
+
+					// ?? AGGRESSIVE WATERMARK REMOVAL FOR HOME TAB ??
+					if (tabId === 'home') {
+						// Method 1: Remove by common selectors
+						const unwantedSelectors = [
+							'img[alt*="icon"]',
+							'img[alt*="placeholder"]',
+							'img[alt*="watermark"]',
+							'div[class*="placeholder"]',
+							'div[class*="watermark"]',
+							'div[class*="icon-bg"]',
+							'div[class*="laptop"]',
+							'div[class*="code-icon"]',
+							'svg[class*="placeholder"]',
+							'div[style*="opacity: 0.05"]',
+							'div[style*="opacity:0.05"]',
+							'div[style*="opacity: 0.1"]',
+							'div[style*="opacity:0.1"]',
+							'div[style*="pointer-events: none"]',
+							'div[style*="position: absolute"]',
+							'div[style*="right:"]',
+							'div[aria-hidden="true"]'
+						];
+
+						unwantedSelectors.forEach(selector => {
+							activeTab.querySelectorAll(selector).forEach(el => el.remove());
+						});
+
+						// Method 2: Scan all direct children and remove low-opacity / decorative ones
+						activeTab.querySelectorAll('*').forEach(el => {
+							const style = window.getComputedStyle(el);
+							const opacity = parseFloat(style.opacity);
+							const isHidden = style.pointerEvents === 'none';
+							const isAbsolute = style.position === 'absolute';
+							const zIndex = parseInt(style.zIndex) || 0;
+
+							// Match the watermark's typical characteristics
+							if ((opacity > 0 && opacity <= 0.15) && (isAbsolute || isHidden || zIndex < 0)) {
+								el.remove();
+							}
+						});
+
+						// Method 3: Remove any last/right-side decorative element
+						const children = Array.from(activeTab.children);
+						children.forEach(child => {
+							const rect = child.getBoundingClientRect();
+							const windowWidth = window.innerWidth;
+							// Element positioned far to the right = likely the watermark
+							if (rect.left > windowWidth * 0.7 || rect.right > windowWidth * 0.9) {
+								const style = window.getComputedStyle(child);
+								if (parseFloat(style.opacity) <= 0.2 || style.pointerEvents === 'none') {
+									child.remove();
+								}
+							}
+						});
+					}
+				}
+
+				// Update nav styling
+				document.querySelectorAll('.nav-btn').forEach(btn => {
+					btn.classList.remove('border-brandPink', 'text-white', 'font-bold');
+					btn.classList.add('border-transparent', 'text-gray-300');
+				});
+				const currentNavBtn = document.getElementById(`nav-${tabId}`);
+				if (currentNavBtn) {
+					currentNavBtn.classList.add('border-brandPink', 'text-white', 'font-bold');
+					currentNavBtn.classList.remove('border-transparent', 'text-gray-300');
+				}
+
+				// Close mobile menu on small screens
+				if (window.innerWidth < 1024) navLinks.classList.add('hidden');
+
+				window.scrollTo({ top: 0, behavior: 'smooth' });
+			}
+
+			// --------------------------
+			// SEARCH
+			// --------------------------
+			function showSearchResults(resultsText) {
+				document.getElementById('searchText').textContent = resultsText;
+			}
+
+			function clearSearch() {
+				document.getElementById('searchInput').value = '';
+				document.getElementById('searchText').textContent = '';
+				document.getElementById('searchNotification').classList.add('hidden');
+				// closePayModal(); // uncomment to close modal on clear
+			}
+
+			function handleSearch(event) {
+				event.preventDefault();
+				const query = document.getElementById('searchInput').value.trim().toLowerCase();
+				if (!query) return;
+
+				const notif = document.getElementById('searchNotification');
+				const notifText = document.getElementById('searchText');
+
+				if (query.includes('faq') || query.includes('question')) {
+					switchTab('faqs');
+				} else if (query.includes('plan') || query.includes('price') || query.includes('cost') || query.includes('service')) {
+					switchTab('plans');
+				} else if (query.includes('support') || query.includes('contact') || query.includes('email')) {
+					switchTab('support');
+				} else if (query.includes('about') || query.includes('bio') || query.includes('skill')) {
+					switchTab('about');
+				} else if (
+					query.includes('pay') ||
+					query.includes('payment') ||
+					query.includes('payment center') ||
+					query.includes('amount') ||
+					query.includes('form')
+					
+				) {
+					openPayModal();
+				} else {
+					switchTab('home');
+				}
+
+				notifText.textContent = `Showing search results for: "${query}"`;
+				notif.classList.remove('hidden');
+			}
+
+			// --------------------------
+			// PAYMENT MODAL
+			// --------------------------
+			function openPayModal() {
+				document.getElementById('payModal').classList.remove('hidden');
+			}
+			function closePayModal() {
+				document.getElementById('payModal').classList.add('hidden');
+			}
+
+			// --------------------------
+			// PRICING FILTER
+			// --------------------------
+			function filterServices(category) {
+				const cards = document.querySelectorAll('.service-card');
+				document.querySelectorAll('.service-filter-btn').forEach(btn => {
+					btn.classList.remove('bg-brandPink', 'text-white');
+					btn.classList.add('bg-gray-200', 'text-gray-700');
+				});
+				event.currentTarget.classList.remove('bg-gray-200', 'text-gray-700');
+				event.currentTarget.classList.add('bg-brandPink', 'text-white');
+
+				cards.forEach(card => {
+					card.style.display = (category === 'all' || card.classList.contains(category)) ? 'flex' : 'none';
+				});
+			}
+
+			// --------------------------
+			// ACCORDION
+			// --------------------------
+			function toggleAccordion(btn) {
+				btn.parentElement.classList.toggle('active');
+			}
+
+			// --------------------------
+			// ORDER MODAL
+			// --------------------------
+			function openOrderModal(packageTitle) {
+				document.getElementById('orderPackageTitle').textContent = packageTitle;
+				document.getElementById('orderModal').classList.remove('hidden');
+			}
+			function closeOrderModal() {
+				document.getElementById('orderModal').classList.add('hidden');
+			}
+			function handleOrderSubmit(event) {
+				event.preventDefault();
+				alert('Thank you! Your order request has been received. Audie will contact you within 24 hours.');
+				closeOrderModal();
+			}
+
+			// --------------------------
+			// CHAT SIMULATION
+			// --------------------------
+			function openChatSim() {
+				document.getElementById('chatSim').classList.remove('hidden');
+			}
+			function closeChatSim() {
+				document.getElementById('chatSim').classList.add('hidden');
+			}
+			function sendChatMessage(event) {
+				event.preventDefault();
+				const input = document.getElementById('chatInput');
+				const messages = document.getElementById('chatMessages');
+				const text = input.value.trim();
+				if (!text) return;
+
+				// User message
+				const userMsg = document.createElement('div');
+				userMsg.className = "bg-brandPink text-white p-3 rounded-lg shadow-sm max-w-[85%] ml-auto text-sm";
+				userMsg.textContent = text;
+				messages.appendChild(userMsg);
+				input.value = '';
+				messages.scrollTop = messages.scrollHeight;
+
+				// Auto reply
+				setTimeout(() => {
+					const autoMsg = document.createElement('div');
+					autoMsg.className = "bg-white p-3 rounded-lg border border-gray-200 shadow-sm max-w-[85%] text-gray-800 text-sm";
+					autoMsg.textContent = "Thank you for your message! Audie is currently reviewing inquiries and will respond to you directly.";
+					messages.appendChild(autoMsg);
+					messages.scrollTop = messages.scrollHeight;
+				}, 1000);
+			}
+
+			// --------------------------
+			// PRICING CARD SELECTION
+			// --------------------------
+			function selectPricingCard(selectedCard) {
+				document.querySelectorAll('.pricing-card').forEach(card => card.classList.remove('selected'));
+				selectedCard.classList.add('selected');
+			}
+
+			// --------------------------
+			// SUPPORT TICKET FORM ? GOOGLE APPS SCRIPT
+			// --------------------------
+			const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz-BHlBbM11qKCxTrZsxBcJg2O0GU5X95p4S136-IsaN9bAlDIqy-zYxcoTzXllRJzbCA/exec";
+
+			document.getElementById('supportTicketForm').addEventListener('submit', async function(e) {
+				e.preventDefault();
+				const submitBtn = document.getElementById('submitBtn');
+				const statusMessage = document.getElementById('statusMessage');
+
+				submitBtn.disabled = true;
+				submitBtn.textContent = 'Sending...';
+				statusMessage.style.display = 'none';
+
+				const formData = {
+					name: document.getElementById('userName').value,
+					email: document.getElementById('userEmail').value,
+					subject: document.getElementById('subject').value,
+					category: document.getElementById('category').value,
+					message: document.getElementById('message').value
+				};
+
+				try {
+					await fetch(WEB_APP_URL, {
+						method: 'POST',
+						mode: 'no-cors',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify(formData)
+					});
+
+					statusMessage.className = 'status-message status-success';
+					statusMessage.textContent = 'Ticket saved successfully.';
+					statusMessage.style.display = 'block';
+					document.getElementById('supportTicketForm').reset();
+				} catch (error) {
+					statusMessage.className = 'status-message status-error';
+					statusMessage.textContent = 'Ticket could not be saved.';
+					statusMessage.style.display = 'block';
+				} finally {
+					submitBtn.disabled = false;
+					submitBtn.textContent = 'Send Ticket';
+				}
+			});
+
+
+		function showTab(tabId) {
+
+			document.querySelectorAll('.tab-content').forEach(tab => {
+				tab.classList.remove('active');
+			});
+
+			const selectedTab = document.getElementById(tabId);
+
+			if (selectedTab) {
+				selectedTab.classList.add('active');
+			}
+		}
+
+		</script>
+
 <script>
-    // --------------------------
-    // YEAR
-    // --------------------------
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // --------------------------
-    // MOBILE MENU
-    // --------------------------
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const navLinks = document.getElementById('navLinks');
-    mobileMenuBtn.addEventListener('click', () => {
-        navLinks.classList.toggle('hidden');
-    });
-
-    // --------------------------
-    // TAB SWITCHING — ENHANCED WATERMARK REMOVAL
-    // --------------------------
-    function switchTab(tabId) {
-        // Hide all tabs
-        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-
-        // Show selected tab
-        const activeTab = document.getElementById(`tab-${tabId}`);
-        if (activeTab) {
-            activeTab.classList.add('active');
-
-            // ?? AGGRESSIVE WATERMARK REMOVAL FOR HOME TAB ??
-            if (tabId === 'home') {
-                // Method 1: Remove by common selectors
-                const unwantedSelectors = [
-                    'img[alt*="icon"]',
-                    'img[alt*="placeholder"]',
-                    'img[alt*="watermark"]',
-                    'div[class*="placeholder"]',
-                    'div[class*="watermark"]',
-                    'div[class*="icon-bg"]',
-                    'div[class*="laptop"]',
-                    'div[class*="code-icon"]',
-                    'svg[class*="placeholder"]',
-                    'div[style*="opacity: 0.05"]',
-                    'div[style*="opacity:0.05"]',
-                    'div[style*="opacity: 0.1"]',
-                    'div[style*="opacity:0.1"]',
-                    'div[style*="pointer-events: none"]',
-                    'div[style*="position: absolute"]',
-                    'div[style*="right:"]',
-                    'div[aria-hidden="true"]'
-                ];
-
-                unwantedSelectors.forEach(selector => {
-                    activeTab.querySelectorAll(selector).forEach(el => el.remove());
-                });
-
-                // Method 2: Scan all direct children and remove low-opacity / decorative ones
-                activeTab.querySelectorAll('*').forEach(el => {
-                    const style = window.getComputedStyle(el);
-                    const opacity = parseFloat(style.opacity);
-                    const isHidden = style.pointerEvents === 'none';
-                    const isAbsolute = style.position === 'absolute';
-                    const zIndex = parseInt(style.zIndex) || 0;
-
-                    // Match the watermark's typical characteristics
-                    if ((opacity > 0 && opacity <= 0.15) && (isAbsolute || isHidden || zIndex < 0)) {
-                        el.remove();
-                    }
-                });
-
-                // Method 3: Remove any last/right-side decorative element
-                const children = Array.from(activeTab.children);
-                children.forEach(child => {
-                    const rect = child.getBoundingClientRect();
-                    const windowWidth = window.innerWidth;
-                    // Element positioned far to the right = likely the watermark
-                    if (rect.left > windowWidth * 0.7 || rect.right > windowWidth * 0.9) {
-                        const style = window.getComputedStyle(child);
-                        if (parseFloat(style.opacity) <= 0.2 || style.pointerEvents === 'none') {
-                            child.remove();
-                        }
-                    }
-                });
-            }
-        }
-
-        // Update nav styling
-        document.querySelectorAll('.nav-btn').forEach(btn => {
-            btn.classList.remove('border-brandPink', 'text-white', 'font-bold');
-            btn.classList.add('border-transparent', 'text-gray-300');
-        });
-        const currentNavBtn = document.getElementById(`nav-${tabId}`);
-        if (currentNavBtn) {
-            currentNavBtn.classList.add('border-brandPink', 'text-white', 'font-bold');
-            currentNavBtn.classList.remove('border-transparent', 'text-gray-300');
-        }
-
-        // Close mobile menu on small screens
-        if (window.innerWidth < 1024) navLinks.classList.add('hidden');
-
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // --------------------------
-    // SEARCH
-    // --------------------------
-    function showSearchResults(resultsText) {
-        document.getElementById('searchText').textContent = resultsText;
-    }
-
-    function clearSearch() {
-        document.getElementById('searchInput').value = '';
-        document.getElementById('searchText').textContent = '';
-        document.getElementById('searchNotification').classList.add('hidden');
-        // closePayModal(); // uncomment to close modal on clear
-    }
-
-    function handleSearch(event) {
-        event.preventDefault();
-        const query = document.getElementById('searchInput').value.trim().toLowerCase();
-        if (!query) return;
-
-        const notif = document.getElementById('searchNotification');
-        const notifText = document.getElementById('searchText');
-
-        if (query.includes('faq') || query.includes('question')) {
-            switchTab('faqs');
-        } else if (query.includes('plan') || query.includes('price') || query.includes('cost') || query.includes('service')) {
-            switchTab('plans');
-        } else if (query.includes('support') || query.includes('contact') || query.includes('email')) {
-            switchTab('support');
-        } else if (query.includes('about') || query.includes('bio') || query.includes('skill')) {
-            switchTab('about');
-        } else if (
-            query.includes('pay') ||
-            query.includes('payment') ||
-            query.includes('payment center') ||
-            query.includes('amount') ||
-            query.includes('form')
-			
-        ) {
-            openPayModal();
-        } else {
-            switchTab('home');
-        }
-
-        notifText.textContent = `Showing search results for: "${query}"`;
-        notif.classList.remove('hidden');
-    }
-
-    // --------------------------
-    // PAYMENT MODAL
-    // --------------------------
-    function openPayModal() {
-        document.getElementById('payModal').classList.remove('hidden');
-    }
-    function closePayModal() {
-        document.getElementById('payModal').classList.add('hidden');
-    }
-
-    // --------------------------
-    // PRICING FILTER
-    // --------------------------
-    function filterServices(category) {
-        const cards = document.querySelectorAll('.service-card');
-        document.querySelectorAll('.service-filter-btn').forEach(btn => {
-            btn.classList.remove('bg-brandPink', 'text-white');
-            btn.classList.add('bg-gray-200', 'text-gray-700');
-        });
-        event.currentTarget.classList.remove('bg-gray-200', 'text-gray-700');
-        event.currentTarget.classList.add('bg-brandPink', 'text-white');
-
-        cards.forEach(card => {
-            card.style.display = (category === 'all' || card.classList.contains(category)) ? 'flex' : 'none';
-        });
-    }
-
-    // --------------------------
-    // ACCORDION
-    // --------------------------
-    function toggleAccordion(btn) {
-        btn.parentElement.classList.toggle('active');
-    }
-
-    // --------------------------
-    // ORDER MODAL
-    // --------------------------
-    function openOrderModal(packageTitle) {
-        document.getElementById('orderPackageTitle').textContent = packageTitle;
-        document.getElementById('orderModal').classList.remove('hidden');
-    }
-    function closeOrderModal() {
-        document.getElementById('orderModal').classList.add('hidden');
-    }
-    function handleOrderSubmit(event) {
-        event.preventDefault();
-        alert('Thank you! Your order request has been received. Audie will contact you within 24 hours.');
-        closeOrderModal();
-    }
-
-    // --------------------------
-    // CHAT SIMULATION
-    // --------------------------
-    function openChatSim() {
-        document.getElementById('chatSim').classList.remove('hidden');
-    }
-    function closeChatSim() {
-        document.getElementById('chatSim').classList.add('hidden');
-    }
-    function sendChatMessage(event) {
-        event.preventDefault();
-        const input = document.getElementById('chatInput');
-        const messages = document.getElementById('chatMessages');
-        const text = input.value.trim();
-        if (!text) return;
-
-        // User message
-        const userMsg = document.createElement('div');
-        userMsg.className = "bg-brandPink text-white p-3 rounded-lg shadow-sm max-w-[85%] ml-auto text-sm";
-        userMsg.textContent = text;
-        messages.appendChild(userMsg);
-        input.value = '';
-        messages.scrollTop = messages.scrollHeight;
-
-        // Auto reply
-        setTimeout(() => {
-            const autoMsg = document.createElement('div');
-            autoMsg.className = "bg-white p-3 rounded-lg border border-gray-200 shadow-sm max-w-[85%] text-gray-800 text-sm";
-            autoMsg.textContent = "Thank you for your message! Audie is currently reviewing inquiries and will respond to you directly.";
-            messages.appendChild(autoMsg);
-            messages.scrollTop = messages.scrollHeight;
-        }, 1000);
-    }
-
-    // --------------------------
-    // PRICING CARD SELECTION
-    // --------------------------
-    function selectPricingCard(selectedCard) {
-        document.querySelectorAll('.pricing-card').forEach(card => card.classList.remove('selected'));
-        selectedCard.classList.add('selected');
-    }
-
-    // --------------------------
-    // SUPPORT TICKET FORM ? GOOGLE APPS SCRIPT
-    // --------------------------
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz-BHlBbM11qKCxTrZsxBcJg2O0GU5X95p4S136-IsaN9bAlDIqy-zYxcoTzXllRJzbCA/exec";
-
-    document.getElementById('supportTicketForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const submitBtn = document.getElementById('submitBtn');
-        const statusMessage = document.getElementById('statusMessage');
-
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending...';
-        statusMessage.style.display = 'none';
-
-        const formData = {
-            name: document.getElementById('userName').value,
-            email: document.getElementById('userEmail').value,
-            subject: document.getElementById('subject').value,
-            category: document.getElementById('category').value,
-            message: document.getElementById('message').value
-        };
-
-        try {
-            await fetch(WEB_APP_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            });
-
-            statusMessage.className = 'status-message status-success';
-            statusMessage.textContent = 'Ticket saved successfully.';
-            statusMessage.style.display = 'block';
-            document.getElementById('supportTicketForm').reset();
-        } catch (error) {
-            statusMessage.className = 'status-message status-error';
-            statusMessage.textContent = 'Ticket could not be saved.';
-            statusMessage.style.display = 'block';
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Send Ticket';
-        }
-    });
-
-
-function showTab(tabId) {
-
-    document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.classList.remove('active');
-    });
-
-    const selectedTab = document.getElementById(tabId);
-
-    if (selectedTab) {
-        selectedTab.classList.add('active');
-    }
-}
-
+document.querySelector('.view-plans-link').addEventListener('click', function(e) {
+    e.preventDefault();
+    // Activate your tab — adjust the selector to match your code
+    document.querySelector('#plans-and-services-tab').click();
+    // Scroll smoothly to it
+    document.querySelector('#plans-and-services').scrollIntoView({ behavior: 'smooth' });
+});
 </script>
 
-</body>
-</html>
+		</body>
+		</html>
 
